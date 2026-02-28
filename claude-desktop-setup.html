@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Desktop Setup - Signet</title>
+<meta name="description" content="Set up Signet with Claude Desktop for AI-powered personal data sovereignty.">
+<link rel="stylesheet" href="style.css">
+<style>
+  .doc-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  .doc-content h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .doc-content h2 {
+    font-size: 1.4rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+  .doc-content p, .doc-content li {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .doc-content ul, .doc-content ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .doc-content li { margin-bottom: 0.5rem; }
+  .doc-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.92rem;
+  }
+  .doc-content th {
+    text-align: left;
+    padding: 0.8rem 1rem;
+    border-bottom: 2px solid var(--border);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .doc-content td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .doc-content strong { color: var(--text-primary); }
+  .doc-content blockquote {
+    border-left: 3px solid var(--accent-dim);
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-brand">signet</a>
+  <div class="nav-links">
+    <a href="/#for-everyone">Why</a>
+    <a href="/#for-builders">How</a>
+    <a href="/#get-started">Start</a>
+    <a href="https://github.com/jmcentire/signet" class="nav-github">GitHub</a>
+  </div>
+</nav>
+
+<div class="doc-content">
+  <a href="/" class="back-link">&larr; Back to signet.tools</a>
+
+  <h1>Claude Desktop Integration</h1>
+  <p>Signet works as an MCP (Model Context Protocol) server that Claude Desktop can connect to directly. Once configured, Claude can store data in your vault, query it, generate proofs, and issue scoped capability tokens on your behalf.</p>
+
+  <h2>Prerequisites</h2>
+  <p>Build and install Signet:</p>
+<pre class="code-block">
+<span class="comment"># Install from source</span>
+cargo install --git https://github.com/jmcentire/signet.git signet
+
+<span class="comment"># Create your vault (generates keypair, config, and storage)</span>
+signet init
+</pre>
+
+  <h2>Configure Claude Desktop</h2>
+  <p>Edit your Claude Desktop configuration file:</p>
+  <ul>
+    <li><strong>macOS</strong>: <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
+    <li><strong>Linux</strong>: <code>~/.config/Claude/claude_desktop_config.json</code></li>
+    <li><strong>Windows</strong>: <code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
+  </ul>
+  <p>Add the Signet MCP server:</p>
+<pre class="code-block">
+{
+  <span class="str">"mcpServers"</span>: {
+    <span class="str">"signet"</span>: {
+      <span class="str">"command"</span>: <span class="str">"signet"</span>,
+      <span class="str">"args"</span>: [<span class="str">"serve"</span>]
+    }
+  }
+}
+</pre>
+  <p>Restart Claude Desktop. Signet will appear in the MCP tools list.</p>
+
+  <h2>Available MCP Tools</h2>
+  <table>
+    <thead>
+      <tr><th>Tool</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>store_data</code></td><td>Store a labeled value in your vault at a specified tier</td></tr>
+      <tr><td><code>list_data</code></td><td>List stored data with optional tier filter (Tier 3 values masked)</td></tr>
+      <tr><td><code>query</code></td><td>Query vault data with context-aware responses</td></tr>
+      <tr><td><code>get_proof</code></td><td>Generate a cryptographic proof for an attribute</td></tr>
+      <tr><td><code>request_capability</code></td><td>Issue a scoped capability token (SPL format)</td></tr>
+      <tr><td><code>negotiate_context</code></td><td>Negotiate disclosure scope with external agents</td></tr>
+      <tr><td><code>check_status</code></td><td>Check vault and agent status</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Example Interactions</h2>
+  <p><strong>Storing data</strong>:</p>
+  <blockquote>"Store my age as 29 in tier 1"</blockquote>
+  <p>Claude calls <code>store_data</code> with <code>{ "label": "age", "value": "29", "tier": 1 }</code>.</p>
+
+  <p><strong>Querying</strong>:</p>
+  <blockquote>"What do you know about me?"</blockquote>
+  <p>Claude calls <code>list_data</code> to enumerate stored facts.</p>
+
+  <p><strong>Generating proofs</strong>:</p>
+  <blockquote>"Prove I'm over 21 to shop.example.com"</blockquote>
+  <p>Claude calls <code>get_proof</code> with <code>{ "attribute": "age_over_21", "domain": "shop.example.com" }</code>.</p>
+
+  <p><strong>Issuing capabilities</strong>:</p>
+  <blockquote>"Give me a one-time payment token for up to $150 on amazon.com"</blockquote>
+  <p>Claude calls <code>request_capability</code> with <code>{ "domain": "amazon.com", "max_amount": 150, "purpose": "purchase", "one_time": true }</code>.</p>
+
+  <h2>HTTP Mode</h2>
+  <p>For remote access or service verification, run in HTTP mode:</p>
+<pre class="code-block">
+signet serve --transport http --bind <span class="num">0.0.0.0</span> --port <span class="num">3000</span>
+</pre>
+  <p>Endpoints:</p>
+  <ul>
+    <li><code>POST /mcp</code> &mdash; JSON-RPC proxy (same protocol as stdio)</li>
+    <li><code>POST /verify</code> &mdash; Verify a proof</li>
+    <li><code>GET /health</code> &mdash; Server info and signet ID</li>
+    <li><code>GET /.well-known/signet.json</code> &mdash; Service discovery</li>
+  </ul>
+
+  <h2>Data Tiers</h2>
+  <table>
+    <thead>
+      <tr><th>Tier</th><th>Access</th><th>Examples</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Agent answers freely with proofs</td><td>Age, preferences, public profile</td></tr>
+      <tr><td>2</td><td>Agent reasons internally, exports conclusions only</td><td>Purchase history, context</td></tr>
+      <tr><td>3</td><td>Requires explicit user authorization</td><td>Payment cards, identity docs, medical</td></tr>
+    </tbody>
+  </table>
+
+  <h2>CLI Equivalents</h2>
+  <p>Everything Claude does via MCP can also be done from the command line:</p>
+<pre class="code-block">
+signet store --tier <span class="num">1</span> --label <span class="str">"age"</span> --value <span class="str">"29"</span>
+signet store --tier <span class="num">1</span> --label <span class="str">"name"</span> --value <span class="str">"Alice Nakamoto"</span>
+signet store --tier <span class="num">3</span> --label <span class="str">"credit_card"</span> --value <span class="str">"4111-1111-1111-1111"</span>
+signet list
+signet list --tier <span class="num">1</span>
+signet capability --domain amazon.com --max-amount <span class="num">150</span> --purpose purchase --one-time
+signet vault-status
+signet audit
+</pre>
+
+  <h2>Troubleshooting</h2>
+  <p><strong>"vault not initialized"</strong>: Run <code>signet init</code> first.</p>
+  <p><strong>Claude doesn't show Signet tools</strong>: Verify the config path is correct and restart Claude Desktop. Check that <code>signet serve</code> works from your terminal.</p>
+  <p><strong>"SPL mint failed"</strong>: The vault signing key may be corrupted. Re-initialize with <code>signet init</code>.</p>
+  <p><strong>Verbose logging</strong>: Run <code>signet serve -v</code> to see debug output on stderr.</p>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="nav-brand">signet</span>
+        <p>Personal Sovereign Agent Stack</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/jmcentire/signet">GitHub</a>
+        <a href="https://github.com/jmcentire/signet/blob/main/SECURITY.md">Security</a>
+      </div>
+    </div>
+    <p class="footer-license">MIT OR Apache-2.0</p>
+  </div>
+</footer>
+</body>
+</html>
