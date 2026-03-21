@@ -19,6 +19,7 @@
       <a href="#for-everyone">Why</a>
       <a href="#for-builders">How</a>
       <a href="#get-started">Start</a>
+      <a href="#signet-eval">Enforce</a>
       <a href="#for-security">Proof</a>
       <a href="https://github.com/jmcentire/signet" class="nav-github">GitHub</a>
     </div>
@@ -291,6 +292,69 @@ curl -X POST http://localhost:<span class="num">3000</span>/verify \
 </section>
 
 <!-- ====================================================================== -->
+<!-- SIGNET-EVAL                                                              -->
+<!-- ====================================================================== -->
+<section id="signet-eval" class="section section-builders">
+  <div class="container">
+    <p class="section-label">Policy Enforcement</p>
+    <h2>signet-eval: Control what your agent can do.</h2>
+    <p>Every action an AI agent proposes passes through deterministic policy evaluation before execution. Block destructive commands, enforce spending limits, gate credential access &mdash; without putting an LLM in the authorization path. 5ms cold start. 44 tests including adversarial.</p>
+
+    <div class="code-examples">
+      <div class="code-example">
+        <h4>Install &amp; Hook into Claude Code</h4>
+<pre class="code-block">
+<span class="comment"># Install from crates.io</span>
+cargo install signet-eval
+
+<span class="comment"># Add to ~/.claude/settings.json</span>
+{
+  <span class="str">"hooks"</span>: {
+    <span class="str">"PreToolUse"</span>: [{
+      <span class="str">"matcher"</span>: <span class="str">""</span>,
+      <span class="str">"hooks"</span>: [{<span class="str">"type"</span>: <span class="str">"command"</span>, <span class="str">"command"</span>: <span class="str">"signet-eval"</span>}]
+    }]
+  }
+}
+</pre>
+      </div>
+      <div class="code-example">
+        <h4>Custom Rules &amp; Spending Limits</h4>
+<pre class="code-block">
+<span class="comment"># ~/.signet/policy.yaml</span>
+rules:
+  - name: books_limit
+    tool_pattern: <span class="str">".*purchase.*"</span>
+    conditions:
+      - <span class="str">"param_eq(category, 'books')"</span>
+      - <span class="str">"spend_plus_amount_gt('books', amount, 200)"</span>
+    action: DENY
+    reason: <span class="str">"Books spending limit ($200) exceeded"</span>
+</pre>
+      </div>
+      <div class="code-example">
+        <h4>Manage Conversationally via MCP</h4>
+<pre class="code-block">
+<span class="comment"># Register MCP server</span>
+claude mcp add --scope user --transport stdio signet -- signet-eval serve
+
+<span class="comment"># Then just tell Claude:</span>
+<span class="str">"Add a $50 limit for amazon orders"</span>
+<span class="str">"Block all rm commands"</span>
+<span class="str">"What's currently blocked?"</span>
+</pre>
+      </div>
+    </div>
+
+    <p style="text-align: center; margin-top: 1.5rem;">
+      <a href="https://jmcentire.github.io/signet-eval" class="btn btn-secondary">signet-eval docs</a>
+      <a href="https://github.com/jmcentire/signet-eval" class="btn btn-secondary">GitHub</a>
+      <a href="https://crates.io/crates/signet-eval" class="btn btn-secondary">crates.io</a>
+    </p>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
 <!-- FOR SECURITY                                                            -->
 <!-- ====================================================================== -->
 <section id="for-security" class="section section-security">
@@ -461,6 +525,7 @@ BIP39 Mnemonic (24 words, 256 bits entropy)
       </div>
       <div class="footer-links">
         <a href="https://github.com/jmcentire/signet">GitHub</a>
+        <a href="https://github.com/jmcentire/signet-eval">signet-eval</a>
         <a href="https://github.com/jmcentire/signet/blob/main/CONTRIBUTING.md">Contributing</a>
         <a href="https://github.com/jmcentire/signet/blob/main/SECURITY.md">Security</a>
         <a href="https://github.com/jmcentire/signet/blob/main/CHANGELOG.md">Changelog</a>
