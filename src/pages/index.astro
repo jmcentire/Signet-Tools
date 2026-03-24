@@ -1,0 +1,753 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/global.css";
+import TierSelector from "../components/TierSelector.tsx";
+import BlindDBDemo from "../components/BlindDBDemo.tsx";
+import PolicyPlayground from "../components/PolicyPlayground.tsx";
+---
+
+<BaseLayout>
+  <!-- ─── Navigation ─── -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="#" class="font-mono text-sm font-bold text-gold tracking-wider">
+          signet
+        </a>
+        <div class="hidden sm:flex items-center gap-6">
+          <a href="https://exemplar.tools" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-muted hover:text-foreground transition-colors">exemplar</a>
+          <a href="https://kindex.tools" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-muted hover:text-foreground transition-colors">kindex</a>
+          <a href="https://perardua.dev" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-muted hover:text-foreground transition-colors">perardua</a>
+        </div>
+      </div>
+      <a href="https://github.com/jmcentire/signet" target="_blank" rel="noopener noreferrer" class="text-muted hover:text-foreground transition-colors">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- HERO                                                                    -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="relative min-h-screen flex flex-col items-center justify-center pt-14 overflow-hidden">
+    <div class="absolute inset-0 grid-texture opacity-30"></div>
+    <div class="absolute inset-0 gold-glow"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <pre class="font-code text-gold text-[clamp(0.55rem,1.8vw,0.85rem)] leading-tight mb-8 opacity-90 select-none" aria-hidden="true">{`     _                  _
+ ___(_) __ _ _ __   ___| |_
+/ __| |/ _\` | '_ \\ / _ \\ __|
+\\__ \\ | (_| | | | |  __/ |_
+|___/_|\\__, |_| |_|\\___|\\__|
+       |___/`}</pre>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.25] mb-6">
+        Your AI agent knows everything about you.<br />
+        <span class="text-gold">Who controls what it shares?</span>
+      </h1>
+
+      <p class="text-lg text-secondary max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+        Signet is a cryptographic vault that sits between you and the world. Your agent proves things about you without revealing you. No passwords handed over. No data copied. No trust required.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8">
+        <a href="#get-started" class="group flex items-center gap-2 px-6 py-3 bg-gold text-background font-semibold text-sm rounded-lg hover:bg-gold-bright hover:shadow-[0_0_30px_rgba(201,162,39,0.3)] transition-all">
+          Get Sovereignty in 3 Commands
+          <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="https://github.com/jmcentire/signet" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-6 py-3 border border-border text-secondary font-medium text-sm rounded-lg hover:border-border-bright hover:text-foreground transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="inline-block bg-surface border border-border rounded-lg px-5 py-3">
+        <code class="font-code text-sm text-secondary">cargo install signet</code>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+      <div class="w-px h-10 bg-gradient-to-b from-gold/40 to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- FOR EVERYONE                                                            -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section id="for-everyone" class="py-28 relative" style="background: radial-gradient(ellipse at 20% 50%, rgba(74, 158, 255, 0.04) 0%, transparent 50%), var(--color-surface);">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="font-mono text-xs text-gold uppercase tracking-widest">For Everyone</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mt-3 mb-10 max-w-2xl">
+        You shouldn't have to give away your secrets to use the internet.
+      </h2>
+
+      <!-- Problem / Solution -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div class="rounded-xl p-6 bg-tier3-dim border border-tier3/20">
+          <h3 class="text-tier3 text-lg font-semibold mb-3">The Problem</h3>
+          <p class="text-secondary text-sm leading-relaxed mb-3">Every time you use an AI agent, buy something online, or prove your age, you hand over real data. Your name. Your address. Your card number. Your medical history. That data gets copied, stored, breached, sold, and correlated.</p>
+          <p class="text-secondary text-sm leading-relaxed">You are not the customer. You are the product. And your data outlives every company that collects it.</p>
+        </div>
+        <div class="rounded-xl p-6 bg-gold-dim border border-gold/20">
+          <h3 class="text-gold text-lg font-semibold mb-3">The Signet Answer</h3>
+          <p class="text-secondary text-sm leading-relaxed mb-3">What if you could prove you're over 21 without showing your ID? Pay for something without giving a merchant your card number? Let your AI agent book a flight without it knowing your passport number?</p>
+          <p class="text-secondary text-sm leading-relaxed">Signet makes this real. Your vault holds your secrets. Your agent carries proofs. The outside world verifies the proof and never sees the original.</p>
+        </div>
+      </div>
+
+      <!-- Tier Selector (React island) -->
+      <TierSelector client:visible />
+
+      <!-- Signet seal analogy -->
+      <div class="my-10">
+        <blockquote class="border-l-3 border-gold/40 pl-6 py-4 bg-gold-dim rounded-r-lg text-secondary italic leading-relaxed">
+          A signet was a seal carried by a trusted proxy to sign documents on behalf of a lord &mdash; in their absence, with their full authority. The vault is the matrix (the original, never leaves you). The agent is the proxy carrying the seal. The proof is the impression &mdash; proves authority without revealing the ring.
+        </blockquote>
+      </div>
+
+      <!-- Data flow -->
+      <div class="mt-12">
+        <h3 class="text-xl font-semibold mb-6">Data flows one direction. Always.</h3>
+        <div class="text-center">
+          <div class="flex justify-center items-center gap-4 sm:gap-6 mb-6 flex-wrap">
+            <div class="font-mono font-semibold text-base px-6 py-3 bg-card border border-border rounded-lg">Vault</div>
+            <span class="text-2xl text-gold">&rarr;</span>
+            <div class="font-mono font-semibold text-base px-6 py-3 bg-card border border-border rounded-lg">Agent</div>
+            <span class="text-2xl text-gold">&rarr;</span>
+            <div class="font-mono font-semibold text-base px-6 py-3 bg-card border border-border rounded-lg">Service</div>
+          </div>
+          <p class="text-secondary max-w-xl mx-auto text-sm leading-relaxed">
+            Never reverse. The service cannot reach into your vault. Your agent cannot send data upstream. Every disclosure is logged, scoped, and revocable.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- FOR BUILDERS                                                            -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section id="for-builders" class="py-28 bg-background">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="font-mono text-xs text-gold uppercase tracking-widest">For Builders</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mt-3 mb-10 max-w-2xl">
+        Nine crates. Four primitives. One install.
+      </h2>
+
+      <!-- Architecture -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 items-start">
+        <div>
+          <p class="text-secondary text-sm leading-relaxed mb-3">
+            Signet is a Rust workspace &mdash; 30,000 lines, 473 tests, nine crates that compose into a complete personal sovereignty stack. It integrates with AI agents via the <strong class="text-foreground">Model Context Protocol (MCP)</strong>, meaning it works with Claude today.
+          </p>
+          <p class="text-secondary text-sm leading-relaxed mb-3">The trust hierarchy is simple:</p>
+          <ol class="text-secondary text-sm leading-relaxed list-decimal pl-5 space-y-1.5">
+            <li><strong class="text-foreground">User</strong> holds an Ed25519 root keypair</li>
+            <li><strong class="text-foreground">Vault</strong> encrypts and stores everything locally</li>
+            <li><strong class="text-foreground">Agent</strong> is credentialed by the vault to act on the user's behalf</li>
+            <li><strong class="text-foreground">External services</strong> receive proofs, never raw data</li>
+          </ol>
+        </div>
+        <div class="code-block text-sm">User (Ed25519 root)
+ +-- Vault (encrypted, never reachable)
+      +-- Agent (credentialed steward)
+           +-- Services (petitioners)</div>
+      </div>
+
+      <!-- The Crates -->
+      <h3 class="text-xl font-semibold mt-12 mb-6">The Crates</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+        <div class="bg-card border border-border rounded-xl p-5 hover:border-gold/30 transition-colors">
+          <code class="font-code text-base font-semibold text-gold block mb-2">signet-core</code>
+          <p class="text-secondary text-sm leading-relaxed">Shared types and traits. <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">Signer</code>, <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">StorageBackend</code>, <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">AuditChainWriter</code>. The interfaces everything else implements.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5 hover:border-gold/30 transition-colors">
+          <code class="font-code text-base font-semibold text-gold block mb-2">signet-vault</code>
+          <p class="text-secondary text-sm leading-relaxed">Root of trust. BlindDB storage, BIP39 mnemonics, SLIP-0010 Ed25519 derivation, AES-256-GCM envelope encryption, hash-chained audit log.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5 hover:border-gold/30 transition-colors">
+          <code class="font-code text-base font-semibold text-gold block mb-2">signet-cred</code>
+          <p class="text-secondary text-sm leading-relaxed">Credential issuance. SD-JWT VCs for interop, BBS+ for unlinkable selective disclosure, Pedersen commitments for numeric proofs, PASETO v4 capability tokens.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5 hover:border-gold/30 transition-colors">
+          <code class="font-code text-base font-semibold text-gold block mb-2">signet-proof</code>
+          <p class="text-secondary text-sm leading-relaxed">Typestate proof pipeline. <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">ProofRequest</code> &rarr; <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">ProofPlan</code> &rarr; <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">ProofBundle</code> &rarr; <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">BoundPresentation</code>. Compile-time guarantees that you can't skip steps.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5 hover:border-gold/30 transition-colors">
+          <code class="font-code text-base font-semibold text-gold block mb-2">signet-policy</code>
+          <p class="text-secondary text-sm leading-relaxed">XACML-for-individuals. Three-way PERMIT / DENY / ANOMALY decisions. Role hierarchy with deny-override combining. Pattern detection with MAC protection.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5 hover:border-gold/30 transition-colors">
+          <code class="font-code text-base font-semibold text-gold block mb-2">signet-notify</code>
+          <p class="text-secondary text-sm leading-relaxed">Authorization channel. HMAC-SHA256 webhook signatures, challenge-response, circuit breaker, scope subset validation to prevent privilege escalation.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5 hover:border-gold/30 transition-colors">
+          <code class="font-code text-base font-semibold text-gold block mb-2">signet-mcp</code>
+          <p class="text-secondary text-sm leading-relaxed">MCP server with middleware pipeline. Session validation, tier classification, policy evaluation, tool execution, audit recording. Seven MCP tools out of the box.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5 hover:border-gold/30 transition-colors">
+          <code class="font-code text-base font-semibold text-gold block mb-2">signet-sdk</code>
+          <p class="text-secondary text-sm leading-relaxed">Four primitives: <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">verify</code>, <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">requestCapability</code>, <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">checkAuthority</code>, <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">parseCredential</code>. Everything a service needs to accept Signet proofs.</p>
+        </div>
+      </div>
+
+      <!-- Integration examples -->
+      <h3 class="text-xl font-semibold mt-12 mb-6">Integration is Four Lines</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+        <div>
+          <h4 class="text-sm text-secondary font-medium mb-3">Verify a proof</h4>
+          <pre class="code-block"><span class="kw">use</span> signet_sdk::verify;
+
+<span class="kw">let</span> result = verify(proof_token, <span class="str">"age_over_21"</span>, <span class="str">"shop.example.com"</span>);
+<span class="cmt">// result.valid, result.expires, result.scope</span></pre>
+        </div>
+        <div>
+          <h4 class="text-sm text-secondary font-medium mb-3">Request a capability</h4>
+          <pre class="code-block"><span class="kw">use</span> signet_sdk::request_capability;
+
+<span class="kw">let</span> cap = request_capability(CapabilitySpec &#123;
+    kind: <span class="str">"payment"</span>,
+    max_amount: <span class="num">150</span>,
+    domain: <span class="str">"amazon.com"</span>,
+    one_time: <span class="kw">true</span>,
+&#125;);</pre>
+        </div>
+      </div>
+
+      <!-- Standards -->
+      <h3 class="text-xl font-semibold mt-12 mb-6">Standards, Not Inventions</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr>
+              <th class="text-left px-4 py-3 border-b-2 border-border text-muted font-semibold text-xs uppercase tracking-wider">Layer</th>
+              <th class="text-left px-4 py-3 border-b-2 border-border text-muted font-semibold text-xs uppercase tracking-wider">Standard</th>
+              <th class="text-left px-4 py-3 border-b-2 border-border text-muted font-semibold text-xs uppercase tracking-wider">Why</th>
+            </tr>
+          </thead>
+          <tbody class="text-secondary">
+            <tr><td class="px-4 py-3 border-b border-border">Identity</td><td class="px-4 py-3 border-b border-border">Ed25519 fingerprint</td><td class="px-4 py-3 border-b border-border">Self-certifying. No DID. No registry.</td></tr>
+            <tr><td class="px-4 py-3 border-b border-border">Credentials</td><td class="px-4 py-3 border-b border-border">SD-JWT VC (RFC 9901)</td><td class="px-4 py-3 border-b border-border">IETF standard, EU wallet compatible</td></tr>
+            <tr><td class="px-4 py-3 border-b border-border">Privacy</td><td class="px-4 py-3 border-b border-border">BBS+ Signatures</td><td class="px-4 py-3 border-b border-border">Unlinkable selective disclosure</td></tr>
+            <tr><td class="px-4 py-3 border-b border-border">Range proofs</td><td class="px-4 py-3 border-b border-border">Bulletproofs</td><td class="px-4 py-3 border-b border-border">No trusted setup required</td></tr>
+            <tr><td class="px-4 py-3 border-b border-border">Agent protocol</td><td class="px-4 py-3 border-b border-border">MCP</td><td class="px-4 py-3 border-b border-border">Native Claude integration</td></tr>
+            <tr><td class="px-4 py-3 border-b border-border">Tokens</td><td class="px-4 py-3 border-b border-border">PASETO v4</td><td class="px-4 py-3 border-b border-border">Misuse-resistant, no algorithm confusion</td></tr>
+            <tr><td class="px-4 py-3">Key derivation</td><td class="px-4 py-3">BIP39 + SLIP-0010</td><td class="px-4 py-3">Deterministic, recoverable</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- SIGNET-EVAL                                                             -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section id="signet-eval" class="py-28 relative" style="background: radial-gradient(ellipse at 70% 30%, rgba(201, 162, 39, 0.04) 0%, transparent 50%), var(--color-surface);">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="font-mono text-xs text-gold uppercase tracking-widest">Policy Enforcement</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mt-3 mb-4 max-w-2xl">
+        Your AI agent can't <code class="font-code text-tier3">rm -rf</code> if you don't let it.
+      </h2>
+      <p class="text-secondary max-w-2xl mb-10 leading-relaxed">
+        Deterministic policy enforcement for AI agent tool calls. Single Rust binary, zero runtime dependencies. Evaluates in ~2&micro;s.
+      </p>
+
+      <!-- Policy YAML example + playground -->
+      <PolicyPlayground client:visible />
+
+      <!-- Install block -->
+      <div class="mt-8 code-block">
+<span class="cmt">$ cargo install signet-eval</span>
+<span class="cmt">$ signet-eval init    # creates policy.yaml</span>
+<span class="cmt">$ signet-eval rules   # show active rules</span></div>
+
+      <div class="mt-8 flex flex-wrap items-center gap-6">
+        <div class="flex items-center gap-4">
+          <span class="font-mono text-2xl font-bold text-foreground">14</span>
+          <span class="font-mono text-xs text-muted uppercase tracking-wider">condition types</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="font-mono text-2xl font-bold text-foreground">88</span>
+          <span class="font-mono text-xs text-muted uppercase tracking-wider">tests</span>
+        </div>
+        <span class="font-mono text-xs text-muted">Claude Code hook integration.</span>
+        <a href="https://github.com/jmcentire/signet-eval" target="_blank" rel="noopener noreferrer" class="ml-auto font-mono text-xs text-gold hover:text-gold-bright transition-colors flex items-center gap-1.5">
+          View on GitHub
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- AGENT-SAFE / SPL                                                        -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section id="agent-safe" class="py-28 bg-background">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="font-mono text-xs text-gold uppercase tracking-widest">Authorization Language</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mt-3 mb-4 max-w-2xl">
+        Authorization in 2 microseconds.
+      </h2>
+      <p class="text-secondary max-w-2xl mb-8 leading-relaxed">
+        Safe Policy Language (SPL) &mdash; token-embedded authorization. Policy travels with the token, not stored on a server.
+      </p>
+
+      <!-- SDK badges -->
+      <div class="flex flex-wrap gap-2 mb-10">
+        {["TypeScript", "Go", "Python", "Rust", "Java", "C#"].map((lang) => (
+          <span class="font-mono text-xs bg-card border border-border rounded-lg px-3 py-1.5 text-secondary">{lang}</span>
+        ))}
+      </div>
+
+      <!-- Features -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="text-sm font-semibold mb-2">Ed25519 Signing</h4>
+          <p class="text-secondary text-xs leading-relaxed">Every token is cryptographically signed. Tampering is detectable. No trust assumptions.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="text-sm font-semibold mb-2">Merkle Proofs</h4>
+          <p class="text-secondary text-xs leading-relaxed">Selective disclosure of policy clauses. Verifier sees only the relevant subset.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="text-sm font-semibold mb-2">Offline Budgets</h4>
+          <p class="text-secondary text-xs leading-relaxed">Hash-chain spending limits that work without server round-trips.</p>
+        </div>
+      </div>
+
+      <!-- Code example -->
+      <pre class="code-block"><span class="cmt">// Capability token with embedded SPL policy</span>
+&#123;
+  <span class="str">"sub"</span>: <span class="str">"agent:7f3a2b"</span>,
+  <span class="str">"iss"</span>: <span class="str">"vault:ed25519:abc123"</span>,
+  <span class="str">"aud"</span>: <span class="str">"amazon.com"</span>,
+  <span class="str">"exp"</span>: <span class="num">1711756800</span>,
+  <span class="str">"spl"</span>: &#123;
+    <span class="str">"permissions"</span>: [<span class="str">"purchase"</span>],
+    <span class="str">"max_amount"</span>: <span class="num">150</span>,
+    <span class="str">"currency"</span>: <span class="str">"USD"</span>,
+    <span class="str">"one_time"</span>: <span class="kw">true</span>,
+    <span class="str">"budget_chain"</span>: <span class="str">"sha256:9f86d0..."</span>
+  &#125;,
+  <span class="str">"sig"</span>: <span class="str">"ed25519:..."</span>
+&#125;</pre>
+
+      <div class="mt-6">
+        <a href="https://github.com/jmcentire/agent-safe" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-gold hover:text-gold-bright transition-colors flex items-center gap-1.5 inline-flex">
+          View on GitHub
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- GET STARTED                                                             -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section id="get-started" class="py-28 relative" style="background: radial-gradient(ellipse at 50% 50%, rgba(201, 162, 39, 0.04) 0%, transparent 50%), var(--color-surface);">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="font-mono text-xs text-gold uppercase tracking-widest">Get Started</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mt-3 mb-10 max-w-2xl">
+        Three commands to sovereignty.
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div>
+          <h4 class="text-sm text-secondary font-medium mb-3">1. Install &amp; Initialize</h4>
+          <pre class="code-block"><span class="cmt"># Install from source</span>
+cargo install --git https://github.com/jmcentire/signet.git signet
+
+<span class="cmt"># Create your vault (generates keypair, stores mnemonic)</span>
+signet init
+
+<span class="cmt"># Store some data</span>
+signet store --tier 1 --label <span class="str">"age"</span> --value <span class="str">"29"</span>
+signet store --tier 1 --label <span class="str">"name"</span> --value <span class="str">"Alice Nakamoto"</span>
+signet store --tier 3 --label <span class="str">"credit_card"</span> --value <span class="str">"4111-1111-1111-1111"</span>
+signet list</pre>
+        </div>
+        <div>
+          <h4 class="text-sm text-secondary font-medium mb-3">2. Connect to Claude Desktop</h4>
+          <pre class="code-block"><span class="cmt"># Add to ~/Library/Application Support/Claude/claude_desktop_config.json</span>
+&#123;
+  <span class="str">"mcpServers"</span>: &#123;
+    <span class="str">"signet"</span>: &#123;
+      <span class="str">"command"</span>: <span class="str">"signet"</span>,
+      <span class="str">"args"</span>: [<span class="str">"serve"</span>]
+    &#125;
+  &#125;
+&#125;</pre>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h4 class="text-sm text-secondary font-medium mb-3">3. Issue Capability Tokens</h4>
+          <pre class="code-block"><span class="cmt"># SPL token with embedded policy, Ed25519-signed</span>
+signet capability \
+  --domain <span class="str">"amazon.com"</span> \
+  --max-amount <span class="num">150</span> \
+  --purpose <span class="str">"purchase"</span> \
+  --one-time</pre>
+        </div>
+        <div>
+          <h4 class="text-sm text-secondary font-medium mb-3">HTTP Server for Verification</h4>
+          <pre class="code-block"><span class="cmt"># Start the verification server</span>
+signet serve --transport http --port <span class="num">3000</span>
+
+<span class="cmt"># Verify a proof</span>
+curl -X POST http://localhost:<span class="num">3000</span>/verify \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d <span class="str">'&#123;"proof": "...", "claim": &#123;"attribute": "age_over_21", "value": true&#125;&#125;'</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- FOR SECURITY / BLINDDB                                                  -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section id="for-security" class="py-28 relative" style="background: radial-gradient(ellipse at 80% 30%, rgba(232, 72, 85, 0.04) 0%, transparent 50%), var(--color-background);">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="font-mono text-xs text-gold uppercase tracking-widest">For Security Engineers</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mt-3 mb-10 max-w-2xl">
+        Information = records + relationships.<br />We destroy the relationships.
+      </h2>
+
+      <!-- BlindDB intro -->
+      <div class="max-w-3xl mb-10">
+        <p class="text-secondary leading-relaxed mb-4">
+          Signet's storage layer implements the <strong class="text-foreground">BlindDB</strong> model from <em>The Ephemeral Internet</em> (McEntire, 2026). The core insight: in most breaches, the relationships between records are more valuable than the records themselves. A credit card number is dangerous. A credit card number linked to a name, address, email, and purchase history is an identity.
+        </p>
+        <p class="text-secondary leading-relaxed">
+          BlindDB doesn't just encrypt your data. It makes relationships between records <strong class="text-foreground">uncomputable</strong> by anyone without the client-side master secret.
+        </p>
+      </div>
+
+      <!-- Interactive BlindDB Demo -->
+      <h3 class="text-xl font-semibold mb-6">Try It</h3>
+      <BlindDBDemo client:visible />
+
+      <!-- Five Defense Layers -->
+      <h3 class="text-xl font-semibold mt-16 mb-6">Five Defense Layers</h3>
+      <div class="flex flex-col gap-3 mb-12">
+        <!-- Layer 1: Primary -->
+        <div class="flex flex-col sm:flex-row gap-4 p-5 rounded-xl border border-gold/30 bg-gradient-to-r from-gold-dim to-card">
+          <div class="font-mono text-2xl font-bold text-gold min-w-8 text-center pt-0.5">1</div>
+          <div>
+            <h4 class="text-base font-semibold mb-1">
+              Relational Opacity
+              <span class="font-mono text-[10px] uppercase tracking-wider bg-gold text-background px-2 py-0.5 rounded ml-2 font-bold align-middle">Primary</span>
+            </h4>
+            <p class="text-secondary text-sm leading-relaxed mb-2">Record IDs are <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">SHA-256(master_secret || label || index)</code>. The server stores a flat pile of opaque hashes. No user table. No foreign keys. No joins. No way to determine which records belong to the same user, which form a collection, or what any record represents.</p>
+            <p class="text-secondary text-sm leading-relaxed">This is the defense that matters most. Even if every other layer fails, an attacker with full database access sees a pile of unrelated blobs.</p>
+          </div>
+        </div>
+        <!-- Layer 2 -->
+        <div class="flex flex-col sm:flex-row gap-4 p-5 rounded-xl border border-border bg-card hover:border-gold/20 transition-colors">
+          <div class="font-mono text-2xl font-bold text-gold min-w-8 text-center pt-0.5">2</div>
+          <div>
+            <h4 class="text-base font-semibold mb-1">Tamper Evidence</h4>
+            <p class="text-secondary text-sm leading-relaxed">Hash-chained audit log. Every vault operation is signed and appended. Chain breaks are detectable. You know if someone modified the record store.</p>
+          </div>
+        </div>
+        <!-- Layer 3 -->
+        <div class="flex flex-col sm:flex-row gap-4 p-5 rounded-xl border border-border bg-card hover:border-gold/20 transition-colors">
+          <div class="font-mono text-2xl font-bold text-gold min-w-8 text-center pt-0.5">3</div>
+          <div>
+            <h4 class="text-base font-semibold mb-1">Provenance &amp; Ordering</h4>
+            <p class="text-secondary text-sm leading-relaxed">Hash chains provide causal ordering. You can prove a record existed before another. You can prove a sequence of operations happened in order. The server cannot reorder history.</p>
+          </div>
+        </div>
+        <!-- Layer 4 -->
+        <div class="flex flex-col sm:flex-row gap-4 p-5 rounded-xl border border-border bg-card hover:border-gold/20 transition-colors">
+          <div class="font-mono text-2xl font-bold text-gold min-w-8 text-center pt-0.5">4</div>
+          <div>
+            <h4 class="text-base font-semibold mb-1">Encryption</h4>
+            <p class="text-secondary text-sm leading-relaxed">AES-256-GCM per-record envelope encryption. Per-record DEKs derived from the master secret and record ID: <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">enc_key = SHA-256(master_secret || record_id || "encrypt")</code>. For data that has independent value (credit cards, SSNs), encryption is the last line.</p>
+          </div>
+        </div>
+        <!-- Layer 5 -->
+        <div class="flex flex-col sm:flex-row gap-4 p-5 rounded-xl border border-border bg-card hover:border-gold/20 transition-colors">
+          <div class="font-mono text-2xl font-bold text-gold min-w-8 text-center pt-0.5">5</div>
+          <div>
+            <h4 class="text-base font-semibold mb-1">Plausible Deniability</h4>
+            <p class="text-secondary text-sm leading-relaxed">Seed data is cryptographically indistinguishable from real data. An attacker cannot determine whether a record is genuine or injected noise. The total record count reveals nothing about the number of users or records per user.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- What the Attacker Sees -->
+      <h3 class="text-xl font-semibold mt-12 mb-4">What the Attacker Sees</h3>
+      <p class="text-secondary mb-6 text-sm leading-relaxed">Three users store emails, addresses, payment cards, medical records, video watch histories, and credential statuses. Here is the server's complete database:</p>
+
+      <pre class="code-block text-xs mb-6"><span class="cmt">SELECT * FROM records;</span>
+
+ #  record_id                           data
+--- ----------------------------------- -------------------------
+ 1  0a3f8b2c...e771c921                 &lt;encrypted 44 bytes&gt;
+ 2  1b8e4d7a...f9823d44                 &lt;encrypted 68 bytes&gt;
+ 3  2c7a91e5...a4f08812                 &lt;encrypted 52 bytes&gt;
+ 4  3d1f6c88...b8e22a97                 &lt;encrypted 40 bytes&gt;
+ 5  4e2a7d99...c7f33b06                 &lt;encrypted 88 bytes&gt;
+ 6  5f3b8eaa...d6044c15                 &lt;encrypted 36 bytes&gt;
+ 7  6a4c9fbb...e5155d24                 &lt;encrypted 48 bytes&gt;
+ 8  7b5da0cc...f4266e33                 &lt;encrypted 72 bytes&gt;
+ 9  8c6eb1dd...03377f42                 &lt;encrypted 44 bytes&gt;
+10  9d7fc2ee...12488051                 &lt;encrypted 56 bytes&gt;
+11  ae80d3ff...21599160                 &lt;encrypted 40 bytes&gt;
+12  bf91e400...306aa27f                 &lt;encrypted 64 bytes&gt;
+13  c0a2f511...4f7bb38e                 &lt;encrypted 48 bytes&gt;</pre>
+
+      <div class="bg-tier3-dim border border-tier3/20 rounded-xl p-6 mb-6">
+        <h4 class="text-tier3 font-semibold mb-3">Questions the attacker cannot answer:</h4>
+        <ul class="space-y-1.5">
+          <li class="text-secondary text-sm pl-5 relative"><span class="absolute left-0 text-tier3 font-mono font-bold">?</span> Which records belong to Alice? Bob? Carol?</li>
+          <li class="text-secondary text-sm pl-5 relative"><span class="absolute left-0 text-tier3 font-mono font-bold">?</span> Which email goes with which address?</li>
+          <li class="text-secondary text-sm pl-5 relative"><span class="absolute left-0 text-tier3 font-mono font-bold">?</span> Who has the credit card? The SSN? The medical record?</li>
+          <li class="text-secondary text-sm pl-5 relative"><span class="absolute left-0 text-tier3 font-mono font-bold">?</span> How many users are there? (3? 30? 300?)</li>
+          <li class="text-secondary text-sm pl-5 relative"><span class="absolute left-0 text-tier3 font-mono font-bold">?</span> Which records form a collection?</li>
+          <li class="text-secondary text-sm pl-5 relative"><span class="absolute left-0 text-tier3 font-mono font-bold">?</span> Is record #5 an email, an address, or a video title?</li>
+          <li class="text-secondary text-sm pl-5 relative"><span class="absolute left-0 text-tier3 font-mono font-bold">?</span> Are any of these records fake (seed data)?</li>
+        </ul>
+      </div>
+
+      <p class="text-muted text-sm mb-12">Run it yourself: <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">cargo test --package signet-vault --test show_db -- --nocapture</code></p>
+
+      <!-- Key Derivation -->
+      <h3 class="text-xl font-semibold mt-12 mb-6">Key Derivation</h3>
+      <pre class="code-block mb-4">BIP39 Mnemonic (24 words, 256 bits entropy)
+ +-- SLIP-0010 Ed25519 master key
+      +-- VaultSealingKey  (HKDF: master + "vault-seal")
+      |    +-- Per-record DEKs (HKDF: VSK + record_id)
+      +-- CompartmentKeys  (HKDF: master + compartment_id)
+      |    +-- Tier 3 DEKs  <span class="text-tier3 font-semibold">(NOT derivable from VSK -- structural isolation)</span>
+      +-- DeviceKeys        (HKDF: master + device_id)</pre>
+      <p class="text-secondary text-sm leading-relaxed mb-12">Tier 3 compartment keys are structurally isolated from the vault sealing key. An agent session that holds the VSK <em>cannot derive</em> compartment keys. This is enforced by the key hierarchy, not by access control.</p>
+
+      <!-- Tiered Key Inputs -->
+      <h3 class="text-xl font-semibold mt-12 mb-6">Tiered Key Inputs</h3>
+      <div class="overflow-x-auto mb-4">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr>
+              <th class="text-left px-4 py-3 border-b-2 border-border text-muted font-semibold text-xs uppercase tracking-wider">Tier</th>
+              <th class="text-left px-4 py-3 border-b-2 border-border text-muted font-semibold text-xs uppercase tracking-wider">Key Input</th>
+              <th class="text-left px-4 py-3 border-b-2 border-border text-muted font-semibold text-xs uppercase tracking-wider">Survives Password Reset</th>
+              <th class="text-left px-4 py-3 border-b-2 border-border text-muted font-semibold text-xs uppercase tracking-wider">Use Case</th>
+            </tr>
+          </thead>
+          <tbody class="text-secondary">
+            <tr><td class="px-4 py-3 border-b border-border">1</td><td class="px-4 py-3 border-b border-border"><code class="font-code text-xs">SHA-256(username + server_salt)</code></td><td class="px-4 py-3 border-b border-border">Yes</td><td class="px-4 py-3 border-b border-border">Preferences, age proofs, public posts</td></tr>
+            <tr><td class="px-4 py-3 border-b border-border">2</td><td class="px-4 py-3 border-b border-border"><code class="font-code text-xs">SHA-256(username + password + "master")</code></td><td class="px-4 py-3 border-b border-border">No</td><td class="px-4 py-3 border-b border-border">Agent reasoning context, session data</td></tr>
+            <tr><td class="px-4 py-3">3</td><td class="px-4 py-3"><code class="font-code text-xs">random_key() (OsRng, 256-bit)</code></td><td class="px-4 py-3">N/A (unrecoverable)</td><td class="px-4 py-3">Payment credentials, identity docs, medical</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-secondary text-sm leading-relaxed mb-12">Crypto-erasure: discard the master secret and all record IDs become uncomputable. GDPR compliance by mathematics, not by policy.</p>
+
+      <!-- Implementation Rigor -->
+      <h3 class="text-xl font-semibold mt-12 mb-6">Implementation Rigor</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="font-semibold mb-2">Constant-Time Comparisons</h4>
+          <p class="text-secondary text-sm leading-relaxed">All CAS operations and authentication checks use <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">subtle::ConstantTimeEq</code>. No timing side-channels on secret-dependent branches.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="font-semibold mb-2">OS-Level Entropy</h4>
+          <p class="text-secondary text-sm leading-relaxed"><code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">rand::rngs::OsRng</code> for every cryptographic operation. No userspace PRNGs in security paths. Verified across all 9 crates.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="font-semibold mb-2">Memory Zeroization</h4>
+          <p class="text-secondary text-sm leading-relaxed">All secret key material wrapped in <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">Zeroizing&lt;&gt;</code>. Secrets are zeroed from memory on drop. No residual key material.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="font-semibold mb-2">No Plaintext on Server</h4>
+          <p class="text-secondary text-sm leading-relaxed">The <code class="font-code text-xs bg-code-bg px-1.5 py-0.5 rounded border border-border">BlindStorageWrapper</code> is a transparent layer that blinds record IDs (SHA-256) and encrypts data (AES-256-GCM) before any backend call. The server never sees labels, plaintext, or semantic content.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="font-semibold mb-2">Audit Chain Integrity</h4>
+          <p class="text-secondary text-sm leading-relaxed">Hash-chained append-only log. Each entry includes the hash of the previous entry. Tampering breaks the chain. Independently verifiable.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="font-semibold mb-2">Structural Tier Isolation</h4>
+          <p class="text-secondary text-sm leading-relaxed">Tier 3 keys are not derivable from the vault sealing key. This is a property of the key hierarchy, not a policy check. A compromised agent session cannot access Tier 3 data.</p>
+        </div>
+      </div>
+
+      <!-- Final CTA -->
+      <div class="text-center py-10 border-t border-border">
+        <h3 class="font-code text-xl font-semibold mb-3">473 tests. Zero <code class="font-code">unwrap()</code> in library code. Clippy clean.</h3>
+        <p class="text-secondary mb-6">Read the code. Run the tests. Break the assumptions.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="https://github.com/jmcentire/signet" class="px-6 py-3 bg-gold text-background font-semibold text-sm rounded-lg hover:bg-gold-bright hover:shadow-[0_0_30px_rgba(201,162,39,0.3)] transition-all">View Source</a>
+          <a href="https://github.com/jmcentire/signet/blob/main/SECURITY.md" class="px-6 py-3 border border-border text-secondary font-medium text-sm rounded-lg hover:border-border-bright hover:text-foreground transition-colors">Security Policy</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- TESSERA                                                                 -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="py-28 relative" style="background: var(--color-surface);">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="font-mono text-xs text-gold uppercase tracking-widest">Self-Validating Documents</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mt-3 mb-4 max-w-2xl">
+        Documents that validate themselves.
+      </h2>
+      <p class="text-secondary max-w-2xl mb-10 leading-relaxed">
+        Tessera produces executable documents that carry their own verification. Receipts, contracts, proofs &mdash; the document IS the proof of its own authenticity.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="text-sm font-semibold mb-2">Digital Receipts</h4>
+          <p class="text-secondary text-xs leading-relaxed">Receipts that cryptographically prove the purchase happened, signed by both parties.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="text-sm font-semibold mb-2">Verifiable Contracts</h4>
+          <p class="text-secondary text-xs leading-relaxed">Contracts that verify every signer's identity without a third-party notary.</p>
+        </div>
+        <div class="bg-card border border-border rounded-xl p-5">
+          <h4 class="text-sm font-semibold mb-2">Credential Bundles</h4>
+          <p class="text-secondary text-xs leading-relaxed">Portable credential packages that validate against the issuer's public key on open.</p>
+        </div>
+      </div>
+
+      <a href="https://github.com/jmcentire/tessera" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-gold hover:text-gold-bright transition-colors flex items-center gap-1.5 inline-flex">
+        View on GitHub
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- HERMESP2P                                                               -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="py-28 bg-background">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="font-mono text-xs text-gold uppercase tracking-widest">Ephemeral Messaging</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mt-3 mb-4 max-w-2xl">
+        Messages that exist only in transit.
+      </h2>
+      <p class="text-secondary max-w-2xl mb-8 leading-relaxed">
+        Decentralized peer-to-peer messaging. No servers, no persistence, no metadata. Ed25519 signing with NaCl encryption. When the recipient reads it, it's gone.
+      </p>
+
+      <div class="flex flex-wrap gap-4">
+        <a href="https://hp2p.net" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-gold hover:text-gold-bright transition-colors flex items-center gap-1.5">
+          hp2p.net
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <a href="https://github.com/jmcentire/HermesP2P" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-gold hover:text-gold-bright transition-colors flex items-center gap-1.5">
+          View on GitHub
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- RESEARCH & WRITING                                                      -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="py-28 relative" style="background: var(--color-surface);">
+    <div class="max-w-6xl mx-auto px-6">
+      <span class="font-mono text-xs text-gold uppercase tracking-widest">Research</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mt-3 mb-10 max-w-2xl">
+        Built on research, not assumptions.
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <a href="https://perardua.dev/books" target="_blank" rel="noopener noreferrer" class="bg-card border border-border rounded-xl p-6 hover:border-gold/30 transition-colors group block">
+          <h4 class="font-semibold mb-2 group-hover:text-gold transition-colors">Privacy by Design</h4>
+          <p class="text-secondary text-sm leading-relaxed">The architectural principles behind Signet's three-tier model and BlindDB.</p>
+          <span class="font-mono text-xs text-muted mt-3 block">Book</span>
+        </a>
+        <a href="https://perardua.dev/research" target="_blank" rel="noopener noreferrer" class="bg-card border border-border rounded-xl p-6 hover:border-gold/30 transition-colors group block">
+          <h4 class="font-semibold mb-2 group-hover:text-gold transition-colors">The Ephemeral Internet</h4>
+          <p class="text-secondary text-sm leading-relaxed">BlindDB source material. Client-side encryption where relationships are uncomputable.</p>
+          <span class="font-mono text-xs text-muted mt-3 block">Research Paper</span>
+        </a>
+        <a href="https://perardua.dev/research/ot-4" target="_blank" rel="noopener noreferrer" class="bg-card border border-border rounded-xl p-6 hover:border-gold/30 transition-colors group block">
+          <h4 class="font-semibold mb-2 group-hover:text-gold transition-colors">Organizational Physics of Multi-Agent AI</h4>
+          <p class="text-secondary text-sm leading-relaxed">The theoretical foundation for agent trust hierarchies and policy enforcement.</p>
+          <span class="font-mono text-xs text-muted mt-3 block">OT-4</span>
+        </a>
+      </div>
+
+      <a href="https://perardua.dev/research" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-gold hover:text-gold-bright transition-colors flex items-center gap-1.5 inline-flex">
+        Read all papers
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- PART OF THE STACK                                                       -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="py-28 bg-background">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <span class="font-mono text-xs text-gold uppercase tracking-widest">Ecosystem</span>
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-3 mb-10">
+        Signet is the trust layer of the Exemplar stack.
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+        <a href="https://exemplar.tools" target="_blank" rel="noopener noreferrer" class="bg-card border border-border rounded-xl p-6 hover:border-gold/30 transition-colors group block text-left">
+          <span class="font-mono text-sm font-semibold text-foreground group-hover:text-gold transition-colors">exemplar.tools</span>
+          <p class="text-secondary text-sm mt-2 leading-relaxed">See the full 18-project governance loop.</p>
+        </a>
+        <a href="https://kindex.tools" target="_blank" rel="noopener noreferrer" class="bg-card border border-border rounded-xl p-6 hover:border-gold/30 transition-colors group block text-left">
+          <span class="font-mono text-sm font-semibold text-foreground group-hover:text-gold transition-colors">kindex.tools</span>
+          <p class="text-secondary text-sm mt-2 leading-relaxed">Persistent memory for your AI, governed by Signet.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- FOOTER                                                                  -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <footer class="border-t border-border bg-background py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+        <!-- Sites -->
+        <div>
+          <h4 class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Sites</h4>
+          <div class="flex flex-col gap-2">
+            <a href="https://exemplar.tools" target="_blank" rel="noopener noreferrer" class="text-secondary text-sm hover:text-foreground transition-colors">exemplar.tools</a>
+            <a href="https://signet.tools" class="text-gold text-sm font-medium">signet.tools</a>
+            <a href="https://kindex.tools" target="_blank" rel="noopener noreferrer" class="text-secondary text-sm hover:text-foreground transition-colors">kindex.tools</a>
+            <a href="https://perardua.dev" target="_blank" rel="noopener noreferrer" class="text-secondary text-sm hover:text-foreground transition-colors">perardua.dev</a>
+          </div>
+        </div>
+        <!-- Links -->
+        <div>
+          <h4 class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Links</h4>
+          <div class="flex flex-col gap-2">
+            <a href="https://github.com/jmcentire/signet" target="_blank" rel="noopener noreferrer" class="text-secondary text-sm hover:text-foreground transition-colors">GitHub</a>
+            <a href="https://github.com/jmcentire/signet/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer" class="text-secondary text-sm hover:text-foreground transition-colors">Contributing</a>
+            <a href="https://github.com/jmcentire/signet/blob/main/SECURITY.md" target="_blank" rel="noopener noreferrer" class="text-secondary text-sm hover:text-foreground transition-colors">Security</a>
+            <a href="https://github.com/jmcentire/signet/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer" class="text-secondary text-sm hover:text-foreground transition-colors">Changelog</a>
+          </div>
+        </div>
+        <!-- Author -->
+        <div>
+          <h4 class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Author</h4>
+          <div class="flex flex-col gap-2">
+            <span class="text-foreground text-sm">Jeremy McEntire</span>
+            <a href="https://perardua.dev" target="_blank" rel="noopener noreferrer" class="text-secondary text-sm hover:text-foreground transition-colors">perardua.dev</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-border pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+        <span class="text-muted text-xs">Part of the <a href="https://exemplar.tools" target="_blank" rel="noopener noreferrer" class="text-gold hover:text-gold-bright transition-colors">Exemplar</a> stack.</span>
+        <span class="font-mono text-xs text-muted">MIT OR Apache-2.0</span>
+      </div>
+    </div>
+  </footer>
+</BaseLayout>

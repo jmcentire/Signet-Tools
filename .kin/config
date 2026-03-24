@@ -1,0 +1,29 @@
+name: signet-tools
+audience: public
+description: >
+  Landing page for the Signet Personal Sovereign Agent Stack.
+  Static site explaining cryptographic vault, ZK proofs, and
+  agent authorization. Deployed via GitHub Pages.
+
+domains:
+  - marketing
+  - web
+  - cryptography
+  - sovereignty
+
+voice:
+  tone: clear, security-literate, benefit-led
+  principles:
+    - Lead with what Signet does for the user, not implementation
+    - Security properties explained without jargon
+  anti-patterns:
+    - Marketing that overpromises security guarantees
+    - Heavy JavaScript for a static landing page
+
+standards:
+  code_review:
+    - Static HTML/CSS, minimal JS
+    - Accessible and fast-loading
+
+connects_to:
+  - signet

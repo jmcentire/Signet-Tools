@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a0f;
+  --color-surface: #0f0f18;
+  --color-card: #161625;
+  --color-card-hover: #1c1c30;
+  --color-border: #2a2a3e;
+  --color-border-bright: #3a3a52;
+  --color-foreground: #e8e6e3;
+  --color-secondary: #9d9b97;
+  --color-muted: #6b6966;
+  --color-dim: #3d3b50;
+  --color-gold: #c9a227;
+  --color-gold-dim: rgba(201, 162, 39, 0.15);
+  --color-gold-bright: #ddb42e;
+  --color-tier1: #4a9eff;
+  --color-tier1-dim: rgba(74, 158, 255, 0.12);
+  --color-tier2: #c9a227;
+  --color-tier2-dim: rgba(201, 162, 39, 0.12);
+  --color-tier3: #e84855;
+  --color-tier3-dim: rgba(232, 72, 85, 0.12);
+  --color-code-bg: #1a1a2e;
+  --color-code-kw: #c678dd;
+  --color-code-str: #98c379;
+  --color-code-num: #d19a66;
+  --color-code-comment: #5c6370;
+  --color-allow: #10b981;
+  --color-deny: #ef4444;
+  --font-display: 'Instrument Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', 'JetBrains Mono', monospace;
+  --font-code: 'JetBrains Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-display);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+}
+
+/* Grid texture overlay */
+.grid-texture {
+  background-image:
+    linear-gradient(rgba(42, 42, 62, 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42, 42, 62, 0.4) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Gold radial glow */
+.gold-glow {
+  background: radial-gradient(ellipse at 50% 0%, rgba(201, 162, 39, 0.06) 0%, transparent 60%);
+}
+
+/* Code block base styles */
+.code-block {
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  line-height: 1.6;
+  white-space: pre;
+  color: var(--color-foreground);
+}
+
+.code-block .kw { color: var(--color-code-kw); }
+.code-block .str { color: var(--color-code-str); }
+.code-block .num { color: var(--color-code-num); }
+.code-block .cmt { color: var(--color-code-comment); }
