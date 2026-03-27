@@ -1,0 +1,50 @@
+# Capabilities Manifest — signet.tools
+# Spec: https://perardua.dev/specs/capabilities
+
+manifest:
+  spec: "0.1"
+  updated: "2026-03-26T00:00:00Z"
+  canonical: "https://perardua.dev/specs/capabilities"
+
+domain:
+  name: "Signet"
+  url: "https://signet.tools"
+  description: >
+    Personal Sovereign Agent Stack. Cryptographic vault for user credentials
+    with zero-knowledge proofs (SD-JWT, BBS+, Bulletproofs), three-tier data
+    model, and authority credential protocol. Your vault is the crown — sealed,
+    local, never externally reachable. Your agent is the steward.
+  contact: "jmc@cageandmirror.com"
+  tos: "/tos"
+  privacy: "/privacy"
+
+read:
+  - id: landing
+    path: /
+    description: "Product overview: vault architecture, three-tier data model, trust hierarchy, crate documentation"
+    auth: public
+    response:
+      format: text/html
+    cache:
+      ttl: 86400
+      signal: stable
+
+  - id: claude_setup
+    path: /docs/claude-desktop-setup
+    description: "Claude Desktop MCP integration guide with configuration and examples"
+    auth: public
+    response:
+      format: text/html
+    cache:
+      ttl: 86400
+      signal: stable
+
+  - id: llms_txt
+    path: /llms.txt
+    description: "Machine-readable product documentation for LLM consumption"
+    auth: public
+    response:
+      format: text/plain
+    cache:
+      ttl: 86400
+      signal: stable

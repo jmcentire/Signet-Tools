@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/global.css";
+import BookPurchaseDemo from "../components/BookPurchaseDemo.tsx";
+---
+
+<BaseLayout
+  title="Agent Demo — Buying a Book Through a Capabilities Manifest | Signet"
+  description="Watch an AI agent discover a publishing house, find a book, and complete a purchase using only the capabilities.yaml manifest. No custom integration. No prior knowledge."
+>
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="/" class="font-mono text-sm font-bold text-gold tracking-wider">
+          signet
+        </a>
+        <div class="hidden sm:flex items-center gap-6">
+          <a href="https://exemplar.tools" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-muted hover:text-foreground transition-colors">exemplar</a>
+          <a href="https://kindex.tools" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-muted hover:text-foreground transition-colors">kindex</a>
+          <a href="https://perardua.dev" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-muted hover:text-foreground transition-colors">perardua</a>
+        </div>
+      </div>
+      <a href="https://github.com/jmcentire/signet" target="_blank" rel="noopener noreferrer" class="text-muted hover:text-foreground transition-colors">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative flex flex-col items-center justify-center pt-28 pb-16 overflow-hidden">
+    <div class="absolute inset-0 grid-texture opacity-30"></div>
+    <div class="absolute inset-0 gold-glow"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <p class="font-mono text-xs text-gold uppercase tracking-widest mb-6">Live Demo</p>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.25] mb-6">
+        An agent buys a book.<br />
+        <span class="text-gold">No integration required.</span>
+      </h1>
+
+      <p class="text-lg text-secondary max-w-2xl mx-auto leading-relaxed font-light">
+        The agent has never seen this website before. It reads one YAML file &mdash; the
+        <a href="https://perardua.dev/specs/capabilities" class="text-gold hover:underline">capabilities manifest</a>
+        &mdash; and discovers everything it needs: what data exists, what actions are available, and what happens when it acts.
+      </p>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section class="pb-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <BookPurchaseDemo client:load />
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-20 bg-surface border-t border-border">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-2xl font-bold tracking-tight mb-10">How it works</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="font-mono text-xs text-tier1 uppercase tracking-widest mb-3">Read</h3>
+          <p class="text-secondary leading-relaxed text-sm">
+            The agent fetches <code class="font-code text-xs text-gold bg-gold/[0.08] px-1.5 py-0.5 rounded">/.well-known/capabilities.yaml</code> and discovers what data the domain exposes. It reads the book catalog the same way it would read any structured endpoint &mdash; by following the manifest.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-mono text-xs text-tier2 uppercase tracking-widest mb-3">Confirm</h3>
+          <p class="text-secondary leading-relaxed text-sm">
+            Before executing any write operation, the agent reads the declared <strong>side effects</strong> and presents them to the user. "This will create an order and charge $50." The user approves. The manifest makes consent explicit and informed.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-mono text-xs text-tier3 uppercase tracking-widest mb-3">Write</h3>
+          <p class="text-secondary leading-relaxed text-sm">
+            The agent calls the checkout endpoint exactly as declared in the manifest. The domain validates the request, creates a Stripe session, and returns a payment URL. Three round trips: discover, confirm, execute.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-mono text-xs text-gold uppercase tracking-widest mb-3">Trust</h3>
+          <p class="text-secondary leading-relaxed text-sm">
+            The manifest is a contract. Side effects are declared, not hidden. Auth requirements are explicit. Cache policies are honest. When <a href="/" class="text-gold hover:underline">Signet</a> proofs replace passwords, the agent proves identity without exposing it.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-border">
+        <p class="text-muted text-sm">
+          The Capabilities Manifest Specification is published at
+          <a href="https://perardua.dev/specs/capabilities" class="text-gold hover:underline">perardua.dev/specs/capabilities</a>.
+          Reference implementations are live on six domains. The credential layer is
+          <a href="/" class="text-gold hover:underline">Signet</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
