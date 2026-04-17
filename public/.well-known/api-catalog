@@ -1,0 +1,38 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://signet.tools/",
+      "service-desc": [
+        {
+          "href": "https://signet.tools/.well-known/mcp/server-card.json",
+          "type": "application/json",
+          "title": "Signet MCP Server Card"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://signet.tools/llms-full.txt",
+          "type": "text/markdown",
+          "title": "Signet — full product documentation for LLMs"
+        },
+        {
+          "href": "https://signet.tools/llms.txt",
+          "type": "text/markdown",
+          "title": "Signet — short LLM overview"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://github.com/jmcentire/signet",
+          "type": "text/html",
+          "title": "Signet engine repository"
+        },
+        {
+          "href": "https://github.com/jmcentire/signet-eval",
+          "type": "text/html",
+          "title": "signet-eval policy-hook repository"
+        }
+      ]
+    }
+  ]
+}

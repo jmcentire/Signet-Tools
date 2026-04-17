@@ -1,107 +1,36 @@
 # Signet
 
-> Cryptographic privacy for AI agents. ZK proofs, policy enforcement, MCP integration.
+> Personal Sovereign Agent Stack. Your vault is the crown, your agent is the steward, external services receive only ZK proofs. Cryptographic privacy for AI agents.
 
 ## What is Signet?
 
-Signet is a personal sovereign agent stack created by Jeremy McEntire. It is a cryptographic vault that sits between you and the world. Your AI agent proves things about you without revealing you. No passwords handed over. No data copied. No trust required.
+Signet is a cryptographic vault that sits between you and the world. Your AI agent proves things about you without revealing you. No passwords handed over. No data copied. No trust required.
 
-Signet is built in Rust — 30,000 lines, 473 tests, nine crates composing into a complete personal sovereignty stack. It integrates with AI agents via the Model Context Protocol (MCP), meaning it works with Claude today.
+Built in Rust. Nine crates compose into a full stack: vault, cred, proof, policy, notify, mcp, sdk, core, and the `signet` CLI. Identity is a self-certifying Ed25519 public-key fingerprint — no DID, no registry. Storage uses the BlindDB model (relational opacity via client-side deterministic hashing).
 
-## Core Concepts
+## Four Protocols
 
-### Three-Tier Data Classification
+- **Protocol 0 — Steward Conversation** (User <-> Agent): authorization with reasoning, audit window, the only surface the user engages directly.
+- **Protocol 1 — Vault Access** (Agent <-> Vault): mutual auth, capability negotiation, data minimization at source, tamper-evident log.
+- **Protocol 2 — Steward Negotiation** (Agent <-> Agent): MCP-native with Signet handshake; claim-based, not data-based.
+- **Protocol 3 — Steward Verification** (Agent <-> Service): SDK layer with four primitives; verify(proof, claim) returns a scoped boolean.
 
-1. **Tier 1 — Freely Provable**: Your agent answers instantly with a cryptographic proof. No data leaves the vault. Age verification, preferences, public profile.
-2. **Tier 2 — Agent-Internal**: Your agent uses knowledge to reason and act on your behalf but never exports raw data. Purchase history, browsing context, recommendations.
-3. **Tier 3 — Capability-Gated**: Your agent literally cannot read this data without your explicit, one-time authorization. Payment, identity documents, medical data.
+## Three Data Tiers
 
-### BlindDB Storage Model
+1. **Tier 1 — Freely Provable**: instant ZK proofs, no raw data leaves the vault (age, preferences, public profile).
+2. **Tier 2 — Agent-Internal**: agent reasons over private data, exports conclusions only (history, context, recommendations).
+3. **Tier 3 — Capability-Gated**: agent cannot read without live, one-time user authorization (payment, identity docs, medical data).
 
-From "The Ephemeral Internet" (McEntire, 2026). Core insight: information = records + relationships. Relationships are often more valuable than records. BlindDB destroys relationships by making them generative via client-side deterministic hashing. The server stores a flat pile of opaque IDs + values — no user tables, no foreign keys, no joins.
+## MCP Integration
 
-Five defense layers:
-1. Relational Opacity (primary) — Record IDs are SHA-256(master_secret || label || index). No way to determine which records belong to the same user.
-2. Tamper Evidence — Hash-chained audit log. Chain breaks are detectable.
-3. Provenance & Ordering — Hash chains provide causal ordering.
-4. Encryption — AES-256-GCM per-record envelope encryption.
-5. Plausible Deniability — Seed data cryptographically indistinguishable from real data.
+Signet is an MCP server — the native integration surface for Claude and other MCP-aware agents. The companion project `signet-eval` is a deterministic policy enforcement layer that runs as a Claude Code PreToolUse hook and also exposes a management MCP server with 22 tools covering policy rules, credentials, preflight contracts, and session state.
 
-### Trust Hierarchy
-
-1. User holds an Ed25519 root keypair
-2. Vault encrypts and stores everything locally
-3. Agent is credentialed by the vault to act on the user's behalf
-4. External services receive proofs, never raw data
-
-## The Nine Crates
-
-- **signet-core**: Shared types and traits. Signer, StorageBackend, AuditChainWriter.
-- **signet-vault**: Root of trust. BlindDB storage, BIP39 mnemonics, SLIP-0010 Ed25519 derivation, AES-256-GCM.
-- **signet-cred**: Credential issuance. SD-JWT VCs, BBS+ signatures, Pedersen commitments, PASETO v4.
-- **signet-proof**: Typestate proof pipeline. Compile-time guarantees.
-- **signet-policy**: XACML-for-individuals. PERMIT / DENY / ANOMALY decisions.
-- **signet-notify**: Authorization channel. HMAC-SHA256 webhook signatures, circuit breaker.
-- **signet-mcp**: MCP server with middleware pipeline. Seven MCP tools.
-- **signet-sdk**: Four primitives: verify, requestCapability, checkAuthority, parseCredential.
-
-## Related Projects
-
-### signet-eval
-Deterministic policy enforcement for AI agent tool calls. Single Rust binary, zero runtime dependencies. Evaluates in ~2 microseconds. 14 condition types, 88 tests. Claude Code hook integration.
-- GitHub: https://github.com/jmcentire/signet-eval
-
-### Agent-Safe (SPL)
-Safe Policy Language — token-embedded authorization. Policy travels with the token, not stored on a server. Six SDK implementations (TypeScript, Go, Python, Rust, Java, C#). Ed25519 signing, Merkle proofs, hash-chain offline budgets. ~2 microsecond evaluation.
-- GitHub: https://github.com/jmcentire/agent-safe
-
-### Tessera
-Self-validating executable documents. Documents that carry their own verification. Receipts, contracts, proofs — the document IS the proof of its own authenticity.
-- GitHub: https://github.com/jmcentire/tessera
-
-### HermesP2P
-Decentralized peer-to-peer messaging. No servers, no persistence, no metadata. Ed25519 signing with NaCl encryption.
-- Website: hp2p.net
-- GitHub: https://github.com/jmcentire/HermesP2P
-
-## Standards Used
-
-- Ed25519 fingerprint — self-certifying identity
-- SD-JWT VC (RFC 9901) — IETF standard, EU wallet compatible
-- BBS+ Signatures — unlinkable selective disclosure
-- Bulletproofs — no trusted setup range proofs
-- MCP — native Claude integration
-- PASETO v4 — misuse-resistant tokens
-- BIP39 + SLIP-0010 — deterministic, recoverable key derivation
-
-## Implementation Rigor
-
-- Constant-time comparisons (subtle::ConstantTimeEq)
-- OS-level entropy (rand::rngs::OsRng)
-- Memory zeroization (Zeroizing<>)
-- No plaintext on server (BlindStorageWrapper)
-- Hash-chained audit log
-- Structural tier isolation (Tier 3 keys not derivable from vault sealing key)
-
-## Research Foundation
-
-Built on research by Jeremy McEntire, published at perardua.dev:
-- "Privacy by Design" (book)
-- "The Ephemeral Internet" (BlindDB source material)
-- "Organizational Physics of Multi-Agent AI" (OT-4)
-
-## Part of the Exemplar Stack
-
-Signet is the trust layer of the Exemplar engineering governance stack — 18 open-source projects forming a closed-loop governance system.
-- Exemplar: https://exemplar.tools
-- Kindex (persistent memory, governed by Signet): https://kindex.tools
+See `/.well-known/mcp/server-card.json` for the full tool catalog and transport metadata.
 
 ## Links
 
 - Website: https://signet.tools
-- GitHub: https://github.com/jmcentire/signet
-- Exemplar Stack: https://exemplar.tools
-- Kindex: https://kindex.tools
-- Research: https://perardua.dev
-- Author: Jeremy McEntire (https://perardua.dev)
+- Engine: https://github.com/jmcentire/signet
+- Policy hook: https://github.com/jmcentire/signet-eval
+- Author: Jeremy McEntire — https://perardua.dev
 - License: MIT OR Apache-2.0

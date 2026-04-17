@@ -1,0 +1,60 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/server-card/v1",
+  "serverInfo": {
+    "name": "signet",
+    "title": "Signet — Personal Sovereign Agent Stack",
+    "version": "3.9.0",
+    "description": "Signet is an MCP server for cryptographic vault operations and deterministic policy enforcement. The engine (signet, v0.2.1) implements the vault, ZK proof, credential, and steward-negotiation surfaces. The policy-hook companion (signet-eval, v3.9.0) exposes the management toolset catalogued here — every AI-agent tool call is evaluated against user-owned rules before execution.",
+    "homepage": "https://signet.tools",
+    "repository": "https://github.com/jmcentire/signet-eval",
+    "license": "MIT OR Apache-2.0",
+    "author": "Jeremy McEntire <jmc@cageandmirror.com>"
+  },
+  "transport": {
+    "type": "stdio",
+    "command": "signet-eval",
+    "args": ["serve"],
+    "install": {
+      "cargo": "cargo install signet-eval",
+      "claude_code": "claude mcp add --scope user --transport stdio signet -- signet-eval serve"
+    }
+  },
+  "capabilities": {
+    "tools": [
+      { "name": "signet_list_rules", "description": "List all current policy rules. Shows what's blocked, allowed, or requires confirmation." },
+      { "name": "signet_add_rule", "description": "Add a policy rule. Action: ALLOW, DENY, ASK, GATE, or ENSURE." },
+      { "name": "signet_remove_rule", "description": "Remove a policy rule by name." },
+      { "name": "signet_edit_rule", "description": "Edit an existing rule's properties." },
+      { "name": "signet_reorder_rule", "description": "Move a rule to a new position (1-based). Critical since first-match-wins." },
+      { "name": "signet_set_limit", "description": "Set a spending limit for a category." },
+      { "name": "signet_sign_policy", "description": "Sign the policy file with HMAC for tamper detection." },
+      { "name": "signet_validate", "description": "Validate the current policy file. Shows errors with actionable fix hints. Pass fix=true to auto-fix (removes broken rules, clamps out-of-range values). Locked rules are never modified." },
+      { "name": "signet_test", "description": "Test a tool call against the current policy without executing it." },
+      { "name": "signet_condition_help", "description": "Show all available condition functions with descriptions and examples." },
+      { "name": "signet_status", "description": "Show vault status, spending totals, credential count." },
+      { "name": "signet_recent_actions", "description": "Show recent action log." },
+      { "name": "signet_reset_session", "description": "Reset session spending counters." },
+      { "name": "signet_store_credential", "description": "Store a Tier 3 credential (compartment-encrypted)." },
+      { "name": "signet_list_credentials", "description": "List credential names (not values)." },
+      { "name": "signet_delete_credential", "description": "Delete a credential from the vault." },
+      { "name": "signet_use_credential", "description": "Request a credential through the policy-gated capability system. Enforces domain, purpose, amount, and one-time constraints." },
+      { "name": "signet_preflight_submit", "description": "File a preflight: declare task intent, risks, and self-imposed constraints before starting work. Constraints are HMAC-signed and locked for the specified duration." },
+      { "name": "signet_preflight_test", "description": "Dry-run: validate preflight constraints without submitting." },
+      { "name": "signet_preflight_active", "description": "View your active preflight: task, constraints, lockout status, violation count." },
+      { "name": "signet_preflight_history", "description": "View past preflights and their outcomes." },
+      { "name": "signet_preflight_violations", "description": "View constraint violations for the active or a specified preflight." }
+    ],
+    "resources": [],
+    "prompts": []
+  },
+  "documentation": {
+    "overview": "https://signet.tools/",
+    "llms_txt": "https://signet.tools/llms.txt",
+    "llms_full": "https://signet.tools/llms-full.txt",
+    "claude_desktop_setup": "https://signet.tools/claude-desktop-setup"
+  },
+  "contact": {
+    "email": "jmc@cageandmirror.com",
+    "security": "https://github.com/jmcentire/signet/blob/main/SECURITY.md"
+  }
+}

@@ -58,6 +58,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- WebMCP shim (A6): expose Signet MCP metadata to agent-aware browsers -->
+    <script>
+      navigator.modelContext?.provideContext({
+        tools: [
+          {
+            name: "get_signet_info",
+            description: "Return Signet MCP server metadata",
+            inputSchema: { type: "object", properties: {} },
+            execute: async () => ({
+              server: "signet",
+              install: "cargo install signet-eval",
+              server_card: "/.well-known/mcp/server-card.json",
+              tool_count: 22,
+            }),
+          },
+        ],
+      });
+    </script>
   </head>
   <body>
     <slot />

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-skills.dev/schemas/index/v1",
+  "publisher": {
+    "name": "Signet",
+    "url": "https://signet.tools",
+    "contact": "jmc@cageandmirror.com"
+  },
+  "updated": "2026-04-17",
+  "skills": []
+}

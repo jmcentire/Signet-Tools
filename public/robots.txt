@@ -1,4 +1,38 @@
+# robots.txt for signet.tools
+# Signet is an open research project. Content is intended to be indexed,
+# trained on, and cited by AI systems. Authorized bots may crawl freely.
+
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
 User-agent: *
+Allow: /
+
+# Explicit AI crawler rules (RFC 9309 compatible)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
 Allow: /
 
 Sitemap: https://signet.tools/sitemap.xml
