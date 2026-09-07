@@ -1,36 +1,20 @@
 # Signet
 
-> Personal Sovereign Agent Stack. Your vault is the crown, your agent is the steward, external services receive only ZK proofs. Cryptographic privacy for AI agents.
+> Your agent. Your authority. An open-source personal authority stack for AI agents.
 
-## What is Signet?
+Signet combines a cryptographic vault, selective proofs, policy evaluation, and an
+MCP interface in nine Rust crates. Signet Eval is the separate tool-call policy
+companion; the two have different installation commands and runtimes.
 
-Signet is a cryptographic vault that sits between you and the world. Your AI agent proves things about you without revealing you. No passwords handed over. No data copied. No trust required.
+## Documentation
 
-Built in Rust. Nine crates compose into a full stack: vault, cred, proof, policy, notify, mcp, sdk, core, and the `signet` CLI. Identity is a self-certifying Ed25519 public-key fingerprint — no DID, no registry. Storage uses the BlindDB model (relational opacity via client-side deterministic hashing).
+- [Overview](https://signet.tools/): The principle and trust model.
+- [Install and connect MCP](https://signet.tools/start/): Locked source installation and setup.
+- [Technical summary](https://signet.tools/llms-full.txt): Components, boundaries, and source links.
+- [Privacy](https://signet.tools/privacy/): Website data handling and software policy links.
+- [Source](https://github.com/jmcentire/signet): The vault and proof stack.
+- [Signet Eval](https://github.com/jmcentire/signet-eval): Companion tool-call enforcement.
 
-## Four Protocols
-
-- **Protocol 0 — Steward Conversation** (User <-> Agent): authorization with reasoning, audit window, the only surface the user engages directly.
-- **Protocol 1 — Vault Access** (Agent <-> Vault): mutual auth, capability negotiation, data minimization at source, tamper-evident log.
-- **Protocol 2 — Steward Negotiation** (Agent <-> Agent): MCP-native with Signet handshake; claim-based, not data-based.
-- **Protocol 3 — Steward Verification** (Agent <-> Service): SDK layer with four primitives; verify(proof, claim) returns a scoped boolean.
-
-## Three Data Tiers
-
-1. **Tier 1 — Freely Provable**: instant ZK proofs, no raw data leaves the vault (age, preferences, public profile).
-2. **Tier 2 — Agent-Internal**: agent reasons over private data, exports conclusions only (history, context, recommendations).
-3. **Tier 3 — Capability-Gated**: agent cannot read without live, one-time user authorization (payment, identity docs, medical data).
-
-## MCP Integration
-
-Signet is an MCP server — the native integration surface for Claude and other MCP-aware agents. The companion project `signet-eval` is a deterministic policy enforcement layer that runs as a Claude Code PreToolUse hook and also exposes a management MCP server with 22 tools covering policy rules, credentials, preflight contracts, and session state.
-
-See `/.well-known/mcp/server-card.json` for the full tool catalog and transport metadata.
-
-## Links
-
-- Website: https://signet.tools
-- Engine: https://github.com/jmcentire/signet
-- Policy hook: https://github.com/jmcentire/signet-eval
-- Author: Jeremy McEntire — https://perardua.dev
-- License: MIT OR Apache-2.0
+Capability issuance requires a configured trusted issuer. Generic one-time
+capabilities remain disabled pending a consumption ledger. Do not infer production
+custody readiness from release availability or the website's illustrative examples.

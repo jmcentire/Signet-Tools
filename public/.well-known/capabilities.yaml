@@ -3,7 +3,7 @@
 
 manifest:
   spec: "0.1"
-  updated: "2026-03-26T00:00:00Z"
+  updated: "2026-09-07T00:00:00Z"
   canonical: "https://perardua.dev/specs/capabilities"
 
 domain:
@@ -15,7 +15,6 @@ domain:
     model, and authority credential protocol. Your vault is the crown — sealed,
     local, never externally reachable. Your agent is the steward.
   contact: "jmc@cageandmirror.com"
-  tos: "/tos"
   privacy: "/privacy"
 
 read:
@@ -30,7 +29,7 @@ read:
       signal: stable
 
   - id: claude_setup
-    path: /docs/claude-desktop-setup
+    path: /start
     description: "Claude Desktop MCP integration guide with configuration and examples"
     auth: public
     response:

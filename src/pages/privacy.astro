@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/site.css";
+---
+
+<BaseLayout title="Privacy — Signet" description="Privacy information for the Signet website and links to the Signet software privacy policy.">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <SiteHeader />
+  <main class="docs-main" id="main">
+    <p class="eyebrow">Signet / Privacy</p>
+    <h1>Your data<br />remains yours.</h1>
+    <p>This website explains Signet and links to its open-source projects. The homepage does not ask for personal data, create an account, or connect to your vault. Its tier illustration runs locally in your browser.</p>
+    <h2>Website services.</h2>
+    <p>The site is hosted on Fly.io. Requests pass through hosting infrastructure, which receives normal connection information such as your IP address and requested URL. Fonts are requested from Google Fonts; those requests also disclose connection information to that provider. This site's application code does not add analytics or advertising trackers.</p>
+    <h2>Optional interactions.</h2>
+    <p>The copy buttons write installation commands to your clipboard only when you select them. Links to GitHub and other sites take you to services with their own privacy policies. The separate book-purchase demo can contact external services when used; it does not demonstrate production Signet credential custody.</p>
+    <h2>The software.</h2>
+    <p>The Signet vault and Signet Eval are separate software projects. Their data handling depends on your configuration and connected clients. Read the <a href="https://github.com/jmcentire/signet/blob/main/PRIVACY.md">Signet software privacy policy</a> and the <a href="https://github.com/jmcentire/signet-eval">Signet Eval documentation</a> for the relevant behavior.</p>
+    <h2>Contact.</h2>
+    <p>For project questions, use <a href="https://github.com/jmcentire/signet/issues">GitHub issues</a>. Please report security concerns through <a href="https://github.com/jmcentire/signet/security/advisories/new">a private security advisory</a>.</p>
+  </main>
+  <SiteFooter />
+</BaseLayout>

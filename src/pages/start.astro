@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/site.css";
+---
+
+<BaseLayout title="Build with Signet — Installation & MCP setup" description="Install Signet from locked source dependencies, initialize a local vault, and connect it to an MCP client.">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <SiteHeader />
+  <main class="docs-main" id="main">
+    <p class="eyebrow">For builders / Getting started</p>
+    <h1>Start with your<br />own authority.</h1>
+    <p>Signet is a Rust workspace with a local CLI and an MCP server. Start in a development environment with test data, then review the trust boundaries for your integration.</p>
+    <h2>01. Install from source.</h2>
+    <p>Use Rust 1.85 or later and Git. The <code>--locked</code> flag uses the repository's tested dependency versions. The vault CLI is installed from this repository; <code>cargo install signet</code> is not the installation command for this project.</p>
+    <pre><code>cargo install --locked --git https://github.com/jmcentire/signet.git signet</code></pre>
+    <h2>02. Initialize a local vault.</h2>
+    <pre><code>signet init
+signet vault-status</code></pre>
+    <p>Follow the initialization instructions and keep recovery material private. To inspect available commands, run <code>signet --help</code>.</p>
+    <h2>03. Connect your MCP client.</h2>
+    <p>Add Signet to your client's MCP server configuration. For Claude Desktop, this entry belongs in <code>claude_desktop_config.json</code>. The client must be able to find the installed binary; use its absolute path if needed.</p>
+    <pre><code>{`{
+  "mcpServers": {
+    "signet": {
+      "command": "signet",
+      "args": ["serve"]
+    }
+  }
+}`}</code></pre>
+    <p>Restart the client after saving the configuration. The <a href="https://github.com/jmcentire/signet/blob/main/docs/claude-desktop-setup.md">repository setup guide</a> covers configuration and troubleshooting.</p>
+    <h2>Understand the current boundary.</h2>
+    <p>Capability verification is available. Issuance fails closed without a configured trusted issuer, and generic one-time capabilities remain disabled until a consumption ledger is available. Installing Signet does not enable production payment custody.</p>
+    <p>Read the <a href="https://github.com/jmcentire/signet/blob/main/docs/capability-verification-boundary-2026-06-04.md">capability verification boundary</a>, <a href="https://github.com/jmcentire/signet/blob/main/SECURITY.md">security policy</a>, and <a href="https://github.com/jmcentire/signet/blob/main/CONTRIBUTING.md">contributor guide</a>.</p>
+    <h2>Looking for agent tool policy?</h2>
+    <p><a href="https://github.com/jmcentire/signet-eval">Signet Eval</a> is the separate tool-call policy engine. Its installation and configuration are independent of the vault.</p>
+    <pre><code>cargo install signet-eval</code></pre>
+  </main>
+  <SiteFooter />
+</BaseLayout>

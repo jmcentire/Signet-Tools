@@ -1,9 +1,9 @@
 name: signet-tools
 audience: public
 description: >
-  Landing page for the Signet Personal Sovereign Agent Stack.
-  Static site explaining cryptographic vault, ZK proofs, and
-  agent authorization. Deployed via GitHub Pages.
+  Canonical signet.tools website for the Signet Personal Sovereign Agent Stack.
+  Astro static output served by nginx on Fly.io (app signet-tools).
+  Engraved seal branding, trust-model illustration, installation, and privacy.
 
 domains:
   - marketing
@@ -22,7 +22,7 @@ voice:
 
 standards:
   code_review:
-    - Static HTML/CSS, minimal JS
+    - Astro static HTML/CSS, minimal client JavaScript
     - Accessible and fast-loading
 
 connects_to:

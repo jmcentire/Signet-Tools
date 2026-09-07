@@ -1,20 +1,20 @@
-# Signet-Tools
+# Signet Tools
 
-Landing page for [signet.tools](https://signet.tools) -- the public-facing site for the Signet Personal Sovereign Agent Stack.
+The canonical [signet.tools](https://signet.tools) website. Astro generates the
+static pages; nginx serves them on Fly.io, app `signet-tools`.
 
-Served via GitHub Pages from this repository.
+```sh
+npm ci
+npm run dev
+npm run build
+fly deploy --remote-only
+```
 
-## What is Signet?
+Pages: `/` (brand and architecture), `/start/` (installation), `/privacy/`,
+and `/demo/` (the separate interactive book-purchase example). Published legacy
+setup URLs redirect to `/start/` through nginx.
 
-Signet is a cryptographic vault that sits between you and the world. Your AI agent proves things about you without revealing you. No passwords handed over. No data copied. No trust required.
-
-- [Main repository](https://github.com/jmcentire/signet)
-- [Claude Desktop setup guide](claude-desktop-setup.md)
-
-## Development
-
-This is a static site. Edit `index.html` and `style.css` directly. Push to `main` to deploy.
-
-## License
-
-MIT OR Apache-2.0
+Brand assets and usage: [docs/brand.md](docs/brand.md). Machine-readable discovery
+and documentation live in `public/`. The vault source is a different repository,
+[jmcentire/signet](https://github.com/jmcentire/signet); its `docs/` directory is
+the static GitHub Pages fallback, not the Fly deployment source.
