@@ -17,4 +17,6 @@ setup URLs redirect to `/start/` through nginx.
 Brand assets and usage: [docs/brand.md](docs/brand.md). Machine-readable discovery
 and documentation live in `public/`. The vault source is a different repository,
 [jmcentire/signet](https://github.com/jmcentire/signet); its `docs/` directory is
-the static GitHub Pages fallback, not the Fly deployment source.
+redirects old GitHub Pages links to this site, not a second deployment source.
+The root `index.html` is also only a GitHub Pages redirect; Astro builds the
+production homepage from `src/pages/index.astro`.
