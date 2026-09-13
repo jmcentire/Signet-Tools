@@ -59,7 +59,7 @@ Signet Eval is a separate tool-call policy engine:
 cargo install signet-eval
 ```
 
-Its repository is https://github.com/jmcentire/signet-eval.
+Its repository is https://github.com/wandercom/signet-eval.
 The existing /.well-known/mcp/server-card.json describes that companion's
 management interface, not the vault CLI. Consult the companion repository for
 current supported hosts and configuration.
