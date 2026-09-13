@@ -13,7 +13,7 @@ companion; the two have different installation commands and runtimes.
 - [Technical summary](https://signet.tools/llms-full.txt): Components, boundaries, and source links.
 - [Privacy](https://signet.tools/privacy/): Website data handling and software policy links.
 - [Source](https://github.com/jmcentire/signet): The vault and proof stack.
-- [Signet Eval](https://github.com/jmcentire/signet-eval): Companion tool-call enforcement.
+- [Signet Eval](https://github.com/wandercom/signet-eval): Companion tool-call enforcement, maintained by Wander.
 
 Capability issuance requires a configured trusted issuer. Generic one-time
 capabilities remain disabled pending a consumption ledger. Do not infer production

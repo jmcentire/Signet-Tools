@@ -28,7 +28,7 @@
           "title": "Signet engine repository"
         },
         {
-          "href": "https://github.com/jmcentire/signet-eval",
+          "href": "https://github.com/wandercom/signet-eval",
           "type": "text/html",
           "title": "signet-eval policy-hook repository"
         }
