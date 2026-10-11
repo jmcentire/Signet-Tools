@@ -1,21 +1,46 @@
 # Signet identity
 
-The personal authority layer. Core statement: **Your agent. Your authority.**
+**Your AI. Your rules.** Supporting principles: **One agent. On your side.** and **Your agent. Your authority.**
 
-The seal is Signet's own brand mark, not an external certification. The custom
-S sits within a six-sided matrix. The full seal adds engraved concentric rings
-and the inscriptions “Personal Authority” and “Authority by Consent.”
+Signet is the open-source authority layer for personal AI, created by Jeremy
+McEntire. Lead with the person and the agent they choose. Explain the value
+through everyday requests before introducing the implementation.
 
-- Full seal: `public/seal.svg`, used as the central authority document.
-- Small mark: `public/mark.svg`, used beside the wordmark.
-- Favicon: `public/favicon.svg`, simplified for small sizes.
-- Paper: `#f3f0e7`; ink: `#24342e`; seal red: `#873f32`.
-- Display: Libre Caslon Display; body: Instrument Sans; annotations: DM Mono.
+## Design direction
 
-Voice: direct, precise, declarative. Explain why agent authority needs an owner
-and scope. Keep implementation limits visible where developers choose how to
-integrate. Do not imply outside accreditation or shipped production custody.
+The memorable object is a personal rulebook, styled as an authority pass. A
+conversation becomes a readable rule. Proposed changes stay visibly pending;
+the interactive examples show the difference between routine permission, an
+exception, and a one-time rule change. The signet mark is a project identity, not a seal of
+external certification.
 
-The homepage is static Astro with a small native script for the tier illustration
-and copy buttons. The separate `/demo` page retains its React island. Honor reduced
-motion, keyboard navigation, and a readable first render without JavaScript.
+- Cloud base: `#f4f6fb`; white surfaces: `#ffffff`.
+- Navy ink and authority pass: `#18274b`.
+- Iris interactive accent: `#514bc2`.
+- Periwinkle boundary: `#dce1fb`; mint permitted disclosure: `#cdf0dc`.
+- Instrument Sans carries both large, tightly set headlines and readable body
+  text. DM Mono is reserved for actual commands and code.
+- Use generous asymmetrical two-column sections on desktop and a linear reading
+  order on mobile. Round the pass, diagrams and controls according to their role.
+- Keep motion optional, focus visible, and essential content readable without JS.
+
+The previous engraved `seal.svg` remains available as a legacy asset. The
+current mark and favicon use iris. Avoid generic certification badges, fabricated
+metrics or customer logos. Preserve factual author attribution in hero, creator
+section, footer, README and metadata.
+
+## Capability language
+
+Present cross-service scenarios as proposed integrations. Distinguish repository
+components from wired product behavior. MCP proof/query placeholders, issuer
+wiring and one-time consumption limitations belong near integration decisions.
+Do not imply that a model cannot leak its context merely because a tier exists.
+
+## October 11 concept checkpoint
+
+Present Signet as a concept and preserved research prototype. Further development
+is paused. `/concept/` records the complete intended design; technical status and
+open work live in the product docs. Do not promise a launch, universal browser
+enforcement, live platform/provider integration, raw-secret expiry or external
+endorsement. Keep creator attribution and dated revision context. Existing
+interactive scenarios remain fictional; no new product behavior is added here.

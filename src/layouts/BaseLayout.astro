@@ -5,8 +5,8 @@ interface Props {
 }
 
 const {
-  title = "Signet — Your agent. Your authority.",
-  description = "Autonomy requires boundaries. An open-source personal authority stack for AI agents: a cryptographic vault, selective proofs, and explicit policy.",
+  title = "Signet — Your AI. Your rules.",
+  description = "Personal authority for everyday life. Signet is building conversational rules, ordinary tasks within limits, and explicit approval for exceptions.",
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -41,7 +41,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Signet",
-      "description": "Cryptographic privacy for AI agents. ZK proofs, 3-tier data classification, MCP integration.",
+      "description": "Personal authority for everyday people and their chosen AI agents. Open-source foundations and a product preview; conversational rule management is under development.",
       "url": "https://signet.tools",
       "author": {
         "@type": "Person",
@@ -57,7 +57,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;450;500;550;600;650;700&family=Libre+Caslon+Display&family=DM+Mono:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;450;500;550;600;650;700&family=DM+Mono:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
     <!-- WebMCP shim (A6): expose Signet MCP metadata to agent-aware browsers -->
     <script>

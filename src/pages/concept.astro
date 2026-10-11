@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/site.css";
+---
+<BaseLayout title="The Signet concept — Personal authority across services" description="Jeremy McEntire’s proposal for user-chosen agents, bounded rings of permission and controlled execution. A preserved research prototype, not a launched service.">
+  <a class="skip-link" href="#main">Skip to content</a><SiteHeader />
+  <main class="docs-main" id="main">
+    <p class="eyebrow">Concept / October 11, 2026 / Jeremy McEntire</p>
+    <h1>Choose your agent.<br />Keep your authority.</h1>
+    <p>A person’s life crosses services. Their agent should work on their behalf across those services, with permission that starts with the person. Signet is a proposal for that authority layer: a way to say what an agent may do, what it may use, and when it must stop.</p>
+    <div class="boundary-note"><p><strong>Concept and preserved research prototype.</strong> Local implementations and synthetic tests support parts of this design. Further development is paused. No live purchasing service, controlled browser or personal-agent platform integration is claimed.</p></div>
+    <h2>A ring connects rules to assets.</h2>
+    <p>Rules describe allowed actions. Assets identify a card, selected identity information or a credential and its provider. A ring binds exact versions of those separate records. Creating one does not activate it. A new account starts with zero permissions.</p>
+    <p>A trip planner might receive a travel budget while another worker replenishes the same dog food. Each assignment names the worker, task, allowed ring, budget and expiry. Spending and reservations count together. Shared limits cannot be reset by changing cards or rings. A task ends on completion or expiry, whichever comes first; swaps cannot renew it.</p>
+    <h2>Allow it. Ask me. Or stop.</h2>
+    <p>Routine actions within current rules could proceed automatically. Other actions need approval or are denied. When an exception is allowed, the agent can make its case: “The dog food costs $5 more this month, and we need it.” That explanation is a proposal, not authority.</p>
+    <p>The owner must see the exact purchase, currency, total, remaining allowance, requested increase and expiry. One purchase, an extra allowance for one month and a permanent rule change are different choices. Approval must not silently raise a baseline or stack the same allowance twice. Exact one-time approvals exist in the prototype; the richer monthly exception workflow remains a design.</p>
+    <h2>Catch the action before it happens.</h2>
+    <p>The agreed browser direction is a controlled session that pauses actions. Jev, TypeSafe’s System One model, would classify relevant behavior. Signet would evaluate the current rules and return allow, deny or ask the owner. The browser would execute only the exact authorized action.</p>
+    <p>This is a proposed enforcement design, not a working browser product. Classification does not replace checks on amounts, identities, deadlines or consumed permissions. Unknown actions must stop. A missed category must never open an unchecked route. Existing sessions, saved cards, scripts and background requests matter just as much as login and visible checkout buttons.</p>
+    <p>Jev returns structured judgments rather than generated prose, but can still be wrong or influenced by adversarial content. Browser isolation, classification evaluation, dynamic sites and complete action coverage remain open. Reusing a real browser engine is plausible; universal unattended checkout is not promised. A host must route its tools through the boundary—installing a plugin cannot control unrelated tools.</p>
+    <h2>Useful access should not mean reusable secrets.</h2>
+    <p>Once an agent sees a reusable card number or password, it can retain it. An expiring permission cannot make it forget. Candidate routes use an isolated component that returns a result, or provider-enforced restricted credentials such as suitably limited virtual cards. A virtual card is only as constrained as its issuer actually makes it.</p>
+    <p>The selected custody direction uses an owner-held asset key, client-only decryption and no key escrow or recovery. Losing the key means re-uploading the asset. A proposed staged handshake requires specific pairs of client, server and agent at each step, with a final client contribution. The exact unlock protocol and plaintext recipient remain unresolved; no custom threshold cryptography is claimed.</p>
+    <h2>History without reviving old permission.</h2>
+    <p>The storage direction is private R2 with native JSON: immutable content-addressed snapshots and a conditional update to the current head. A policy can be restored as a new version, but spent grants, budgets and receipts cannot be rolled back with it. Atomic reservations and receipt recovery prevent a lost reply from becoming a second dispatch.</p>
+    <p>Local code and tests cover these mechanics. Live R2/KMS validation, protected rollback recovery, retention cleanup and isolated execution remain unfinished. Retention is intended to require both sufficient age and enough newer committed versions, while preserving active and pinned state.</p>
+    <h2>A concrete contribution. An open question.</h2>
+    <p>Signet brings a design, source foundations and an inspectable research prototype to the question of who an agent answers to. It is an independent project by <a href="https://perardua.dev">Jeremy McEntire</a>. Named platforms are potential audiences, not integrations, customers or endorsers.</p>
+    <p>The concept can stand on its own. Further implementation would require a reason to build, a partner or funding—not a promise inferred from this page.</p>
+    <p><a href="https://github.com/jmcentire/signet/blob/main/docs/architecture.md">Complete architecture</a> · <a href="https://github.com/jmcentire/signet/blob/main/docs/prototype-status.md">Implemented and tested status</a> · <a href="https://github.com/jmcentire/signet/blob/main/docs/open-work.md">Answered decisions and open work</a></p>
+    <p>Jev references: <a href="https://docs.typesafe.ai/introduction">TypeSafe introduction</a>, <a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13">documented limitations</a>. This proposal does not imply TypeSafe endorsement.</p>
+  </main><SiteFooter />
+</BaseLayout>

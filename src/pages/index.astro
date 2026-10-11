@@ -3,141 +3,137 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import "../styles/site.css";
-
-const examples = [
-  { tier: "01", name: "Prove a fact", status: "MINIMUM DISCLOSURE", title: "Over 21. That is all.", response: "age_over_21: true", detail: "The request needs an age threshold. A proof can disclose the claim while keeping the date of birth private." },
-  { tier: "02", name: "Use context", status: "AGENT-INTERNAL", title: "The preference stays personal.", response: 'recommendation: "window seat"', detail: "Your agent can use permitted context to make a recommendation. The tier model separates that internal context from what it discloses." },
-  { tier: "03", name: "Request access", status: "AUTHORIZATION REQUIRED", title: "Some decisions remain yours.", response: "credential_issued: false", detail: "Sensitive data sits behind a separate key boundary. Capability issuance fails closed without a configured trusted issuer; this example grants no access." },
-];
 const install = "cargo install --locked --git https://github.com/jmcentire/signet.git signet";
 ---
-
-<BaseLayout title="Signet — Your agent. Your authority." description="Autonomy requires boundaries. Signet is an open-source personal authority stack: a cryptographic vault, selective proofs, and explicit policy for AI agents.">
+<BaseLayout title="Signet — Your AI. Your rules." description="Tell your AI what it can do for you. Signet proposes personal authority across services, with bounded permissions and explicit exceptions. Concept and preserved research prototype. Created by Jeremy McEntire.">
   <a class="skip-link" href="#main">Skip to content</a>
   <SiteHeader />
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">The personal authority layer</p>
-        <h1 id="hero-title">Your agent.<br /><em>Your authority.</em></h1>
-        <p class="hero-deck">An agent can act on your behalf.<br />The authority should never stop being yours.<br /><br />Signet combines a private vault, selective proofs, and explicit policy. Build authority into how your agent works.</p>
-        <div class="hero-actions">
-          <a class="button" href="/start">Build with Signet <span aria-hidden="true">↗</span></a>
-          <a class="text-link" href="#principles">Read the principle <span aria-hidden="true">↓</span></a>
-        </div>
-        <p class="hero-footnote">OPEN SOURCE. LOCALLY CONTROLLED. YOURS BY DESIGN.</p>
+        <p class="intro-label"><span class="small-seal" aria-hidden="true">S</span> Personal authority for everyday life</p>
+        <h1 id="hero-title">Your AI.<br />Your rules.</h1>
+        <p class="hero-deck">Tell your AI what it can do for you.<br class="desktop-break" /> Make sure it listens.</p>
+        <p class="hero-description">Imagine setting rules by talking, letting your chosen agent handle routine tasks, and approving the exceptions. Signet proposes that personal authority across services. The concept and research prototype are preserved; further development is paused.</p>
+        <div class="hero-actions"><a class="button" href="#in-practice">Try the rules preview</a><a class="text-link" href="/concept/">Read the concept</a></div>
+        <p class="hero-credit">Created by <a href="https://perardua.dev">Jeremy McEntire</a><span>Concept · Preserved research prototype</span></p>
       </div>
-      <div class="seal-document">
-        <div class="document-meta"><span>THE SIGNET PRINCIPLE</span><span>№ 001 / 2026</span></div>
-        <img class="seal-art" src="/seal.svg" width="600" height="600" alt="The Signet seal, engraved with Personal Authority and Authority by Consent" fetchpriority="high" />
-        <p class="document-caption">Authority belongs to you.<small>DELEGATED WITH INTENT. BOUNDED BY DESIGN.</small></p>
-        <div class="document-bottom"><span>PERSONAL SOVEREIGN AGENT STACK</span><span>SIGNET</span></div>
-      </div>
-    </section>
-
-    <div class="trust-strip" aria-label="Project foundations">
-      <span><strong>RUST</strong> / NINE CRATES</span>
-      <span>CRYPTOGRAPHIC VAULT</span>
-      <span>MCP INTEGRATION</span>
-      <span>MIT / APACHE 2.0</span>
-    </div>
-
-    <section class="section" id="principles">
-      <p class="eyebrow">01 / The principle</p>
-      <div class="section-heading">
-        <h2>Autonomy requires<br />boundaries.</h2>
-        <p>As agents gain the ability to act, permission can no longer be implied. It needs an owner, a scope, and a way to say no. Signet starts with the person the agent represents.</p>
-      </div>
-      <div class="principles-grid">
-        <article class="principle"><span class="number">I.</span><h3>Keep the source of authority.</h3><p>Your vault holds the root keys. Your agent operates within the access you grant. Delegation begins with you.</p></article>
-        <article class="principle"><span class="number">II.</span><h3>Disclose only what is needed.</h3><p>A service may need to verify a claim. That does not entitle it to the complete record behind the claim.</p></article>
-        <article class="principle"><span class="number">III.</span><h3>Make permission explicit.</h3><p>Define the context. Evaluate the request. Record the decision. Sensitive access should have a boundary you can inspect.</p></article>
+      <div class="authority-map rulebook" aria-label="Product concept with fictional personal rules">
+        <div class="map-top"><span>A little clarity. A lot of freedom.</span><span class="map-note">Product concept</span></div>
+        <div class="rulebook-message">“Don’t spend more than $50 on Amazon without asking me.”</div>
+        <div class="authority-pass"><div class="pass-heading"><span class="pass-brand">signet.</span><span>Your sample rules</span></div><div class="rulebook-rule"><span>Shopping</span><strong>Amazon, up to $50.</strong><small>Ask above the limit.</small></div><div class="rulebook-rule"><span>Dog-food reorders</span><strong>Find a deal. Otherwise, the usual price.</strong><small>Same approved order · Up to $46 total.</small></div><div class="pass-features"><span>You set the rules.</span><span>Your agent follows them.</span></div></div>
+        <div class="proposed-rule"><span class="proposal-label">Proposed addition · Awaiting you</span><strong>Always confirm electronics purchases.</strong><p>Your agent can suggest this rule. Only you can authorize adding it.</p><a href="#in-practice">Explore one-time permission</a></div>
+        <p class="map-caption">Illustrative rules, not a connected account.</p>
       </div>
     </section>
 
-    <section class="manifesto">
-      <div class="manifesto-inner">
-        <div class="seal-outline" aria-hidden="true"><img src="/mark.svg" width="84" height="90" alt="" /><span>THE SEAL. THE SCOPE. THE SOVEREIGN.</span></div>
-        <div><p class="eyebrow">A very old idea. A necessary new layer.</p><h2>The seal travels.<br />The authority stays.</h2><p>A signet let a trusted representative act in someone's name. The same distinction matters now: your agent carries a specific mandate. You remain the source of its authority.</p></div>
-      </div>
+    <section class="principle-band" id="principles" aria-labelledby="principle-title">
+      <div class="band-inner"><p class="section-kicker">Less checking in. More getting on.</p><h2 id="principle-title">The ordinary things, handled.<br />The important choices, yours.</h2><div class="band-columns"><p>A cable you need. The dog food you’re running low on. A subscription coming up for renewal. Your agent should know when to get on with it—and when to ask.</p><p>Tell it your limits in your own words. Decide whether to see a final confirmation or let it act within your rules. An exception today should never silently become permission forever.</p></div><p class="band-thesis">One agent. On your side.<br /><strong>With authority that starts with you.</strong></p></div>
     </section>
 
-    <section class="section architecture" id="architecture">
-      <p class="eyebrow">02 / The architecture</p>
-      <div class="section-heading"><h2>One root of trust.<br />Clear lines of access.</h2><p>Signet brings a local vault, a policy engine, and a proof pipeline into one Rust workspace. The trust model makes each participant's role explicit.</p></div>
-      <div class="architecture-flow" aria-label="Trust model: your vault, your agent, the service">
-        <article class="flow-node"><span class="flow-label">01 / THE ROOT</span><h3>Your vault.</h3><p>Encrypted storage and a key hierarchy separate what the agent can access from what requires your authorization.</p></article>
-        <article class="flow-node"><span class="flow-label">02 / THE REPRESENTATIVE</span><h3>Your agent.</h3><p>An MCP interface connects the agent to the policy and proof layers. Requests are evaluated within that boundary.</p></article>
-        <article class="flow-node"><span class="flow-label">03 / THE REQUESTER</span><h3>The service.</h3><p>Verification binds a capability to its expected issuer, domain, purpose, and validity window.</p></article>
+    <section class="section practice" id="in-practice" aria-labelledby="practice-title">
+      <div class="section-heading"><div><p class="section-kicker">An interactive product preview</p><h2 id="practice-title">Say the rule.<br />See where it leads.</h2></div><p>These fictional examples illustrate the proposed experience. No agent is connected, no real rule changes, and nothing is purchased.</p></div>
+      <noscript><p class="example-note">Enable JavaScript to change this local preview. The examples below remain illustrative.</p></noscript>
+      <div class="preview-toolbar"><label for="confirmation-mode">Your preference <select id="confirmation-mode"><option value="automatic">Act within my rules</option><option value="confirm">Always ask for final confirmation</option></select></label><button type="button" id="reset-preview">Reset preview</button></div>
+      <div class="scenario-tabs" role="tablist" aria-label="Everyday rules scenarios">
+        <button id="scenario-0" role="tab" type="button" aria-selected="true" aria-controls="panel-0" tabindex="0">A USB-C cable</button><button id="scenario-1" role="tab" type="button" aria-selected="false" aria-controls="panel-1" tabindex="-1">Dog-food reorder</button><button id="scenario-2" role="tab" type="button" aria-selected="false" aria-controls="panel-2" tabindex="-1">A $75 exception</button><button id="scenario-3" role="tab" type="button" aria-selected="false" aria-controls="panel-3" tabindex="-1">Change a rule</button>
       </div>
-      <div class="request-example">
-        <div class="request-controls">
-          <p class="eyebrow">Explore the three tiers</p>
-          <div class="request-tabs" role="tablist" aria-label="Data access tiers">
-            {examples.map((example, i) => <button id={`tier-${i}`} type="button" role="tab" aria-selected={i === 0 ? "true" : "false"} aria-controls="request-panel" tabindex={i === 0 ? 0 : -1} data-example={i}><span>{example.tier}</span>{example.name}</button>)}
-          </div>
-        </div>
-        <div class="request-output" id="request-panel" role="tabpanel" aria-labelledby="tier-0" tabindex="0">
-          <div class="output-meta"><span>ILLUSTRATIVE REQUEST</span><span class="output-status" data-output="status">{examples[0].status}</span></div>
-          <h3 data-output="title">{examples[0].title}</h3>
-          <code data-output="response">{examples[0].response}</code>
-          <p data-output="detail">{examples[0].detail}</p>
-        </div>
-      </div>
-      <p class="example-note">A model of the trust boundaries. No real data, proof generation, or authorization is used in this illustration.</p>
-      <p class="architecture-note">Capability issuance requires a trusted issuer. One-time generic capabilities remain disabled pending a consumption ledger. <a href="https://github.com/jmcentire/signet/blob/main/docs/capability-verification-boundary-2026-06-04.md">Read the implementation boundary ↗</a></p>
+      <div id="panel-0" class="scenario-panel" role="tabpanel" aria-labelledby="scenario-0" tabindex="0"><div class="scenario-story"><p class="scenario-tier">Standing permission</p><blockquote>“Find me a good USB-C cable under $50 on Amazon.”</blockquote><h3>A small task, inside your limits.</h3><p>The sample agent finds a suitable cable for $18 total. It checks the merchant, your requirements, and your active rules before deciding whether to ask.</p></div><div class="decision-card"><span class="decision-label">Illustrative proposal</span><h3>USB-C cable</h3><p>Amazon · $18 total</p><div class="decision-result" id="cable-result" role="status">Within the sample $50 rule; could proceed.</div><small>Applies to this specific cable and merchant.</small></div></div>
+      <div id="panel-1" class="scenario-panel" role="tabpanel" aria-labelledby="scenario-1" tabindex="0" hidden><div class="scenario-story"><p class="scenario-tier">Conditional permission</p><blockquote>“For the usual dog food, find a better deal. Otherwise, pay the usual amount.”</blockquote><h3>A better price is welcome. The usual price is okay.</h3><p>Same approved product, pack size, merchant, and delivery requirements. This fictional rule uses a $46 total baseline from a previously approved order.</p><label class="price-label" for="reorder-price">Try a price <select id="reorder-price"><option value="42">Better deal · $42</option><option value="46">Usual price · $46</option><option value="49">Price increase · $49</option></select></label></div><div class="decision-card"><span class="decision-label">Established reorder</span><h3>The usual dog food</h3><p>Amazon · Approved baseline: $46 total</p><div class="decision-result" id="reorder-result" role="status">A better deal at $42 meets the sample reorder rule.</div><small>A higher price needs approval. An exception never raises the baseline.</small></div></div>
+      <div id="panel-2" class="scenario-panel" role="tabpanel" aria-labelledby="scenario-2" tabindex="0" hidden><div class="scenario-story"><p class="scenario-tier">Temporary permission for an action</p><blockquote>“This $75 desk lamp is worth it. Just this once.”</blockquote><h3>One exception. The same $50 rule.</h3><p>Approve this exact desk lamp, from Amazon, for $75 total. That gives no permission for another item or merchant and does not raise your standing limit.</p></div><div class="decision-card"><span class="decision-label">Outside your standing permission</span><h3>Desk lamp · Amazon</h3><p>$75 total · One specific purchase</p><div class="decision-result" id="exception-result" role="status">Needs your explicit approval.</div><button class="button preview-action" type="button" id="approve-exception">Preview approving this purchase once</button><small>Your Amazon limit stays $50.</small></div></div>
+      <div id="panel-3" class="scenario-panel" role="tabpanel" aria-labelledby="scenario-3" tabindex="0" hidden><div class="scenario-story"><p class="scenario-tier">Temporary permission to manage a rule</p><blockquote>“Always ask me before buying electronics.”</blockquote><h3>A suggestion until you authorize it.</h3><p>Your agent proposes one exact addition: “Electronics purchases always require confirmation.” You can grant one-time permission to add it. Editing or removing a rule needs its own approval, tied to the identified rule and exact change.</p></div><div class="decision-card"><span class="decision-label">Proposed addition · electronics-confirm</span><h3>Always confirm electronics.</h3><p>Includes the sample cable and desk lamp.</p><div class="decision-result" id="rule-result" role="status">Awaiting one-time authority to add this rule.</div><button class="button preview-action" type="button" id="approve-rule">Preview authorizing this exact addition</button><small>This authorizes a rule change, not a purchase.</small></div></div>
+      <div class="active-rules" aria-label="Active sample rules"><strong>Active sample rules</strong><span>Amazon: up to $50</span><span>Dog food: up to the approved $46 baseline</span><span id="electronics-rule" hidden>Electronics: always confirm</span></div>
+      <p class="example-note">Local simulation of intended behavior. Prices and purchase history are fictional. The current open-source stack does not yet provide conversational rule management or end-to-end purchasing.</p>
+      <details class="mechanics"><summary>What keeps these permissions specific?</summary><p>Standing rules define ongoing limits. Conditional rules also check the established order and its approved price baseline. A temporary purchase exception covers one exact action, merchant, item, and total. A rule-management grant separately covers one add, edit, or remove operation, with the exact proposed change and affected rule identified. The agent cannot use either grant to expand its own authority.</p><p>The intended recurring-price baseline comes from verified purchase history and an explicit approved rule. Higher purchases never silently update it. Missing history, changed requirements, expired approval, or a reused grant must require review or stop the action. The local authority core implements signed approvals and single-use state. The local passkey owner app now turns an exact review into a verified approval. Protected deployment and merchant adapters still need to connect that core to everyday life.</p></details>
     </section>
 
-    <section class="section builders" id="developers">
-      <p class="eyebrow">03 / For builders</p>
-      <div class="section-heading"><h2>Put authority<br />in the architecture.</h2><p>Start with the vault and its MCP interface. For tool-call enforcement in your coding agent, the companion Signet Eval has its own installation and policy.</p></div>
-      <div class="builder-grid">
-        <article class="builder-item"><span class="number">SIGNET / VAULT &amp; PROOFS</span><h3>The personal authority stack.</h3><p>Explore encrypted storage, tiered access, policy evaluation, and capability verification. Build from the repository's locked dependencies.</p><div class="command"><code>{install}</code><button type="button" data-copy={install} aria-label="Copy Signet install command">COPY</button></div><a href="/start" class="text-link">Installation &amp; MCP setup <span aria-hidden="true">↗</span></a></article>
-        <article class="builder-item"><span class="number">SIGNET EVAL / TOOL POLICY</span><h3>A boundary for agent actions.</h3><p>Evaluate agent tool calls against explicit rules. The standalone policy engine is a separate project maintained by Wander.</p><div class="command"><code>cargo install signet-eval</code><button type="button" data-copy="cargo install signet-eval" aria-label="Copy Signet Eval install command">COPY</button></div><a href="https://github.com/wandercom/signet-eval" class="text-link">Explore Signet Eval <span aria-hidden="true">↗</span></a></article>
-      </div>
-      <p class="build-note">Signet is under active development. Review the <a href="https://github.com/jmcentire/signet/blob/main/SECURITY.md">security model</a> and <a href="https://github.com/jmcentire/signet">source</a> before integrating sensitive workloads. Release availability is not a claim of production custody readiness.</p>
+    <section class="section architecture" id="architecture" aria-labelledby="architecture-title">
+      <div class="section-heading"><div><p class="section-kicker">Three kinds of “yes”</p><h2 id="architecture-title">Permission that means<br />what you meant.</h2></div><p>Shopping, subscriptions, reorders, and everyday tasks need more than a blanket yes. The goal is simple: predictable freedom within the boundaries you set.</p></div>
+      <div class="architecture-grid"><article><span class="component-symbol" aria-hidden="true">↻</span><h3>“You can do this.”</h3><p>Standing permission covers routine actions within your rules. “Amazon purchases up to $50, when they meet my requirements.”</p></article><article><span class="component-symbol" aria-hidden="true">⊜</span><h3>“If these things are true.”</h3><p>Conditional permission checks the details. “Reorder the same dog food at or below the usual approved total, after looking for a better deal.”</p></article><article><span class="component-symbol" aria-hidden="true">1</span><h3>“Just this, just once.”</h3><p>Temporary permission approves one specific action—or separately authorizes one exact rule change. It never grants the agent permission to rewrite its own limits.</p></article></div>
     </section>
 
-    <section class="closing">
-      <div><p class="eyebrow">The next layer of the agent stack</p><h2>Let your agent act.<br />Keep the authority.</h2></div>
-      <a class="button" href="/start">Build with Signet <span aria-hidden="true">↗</span></a>
+    <section class="section architecture" aria-labelledby="rings-title">
+      <div class="section-heading"><div><p class="section-kicker">The ring is the boundary</p><h2 id="rings-title">The right authority.<br />For the task at hand.</h2></div><p>Rules say what may happen. Assets identify what may be used. A ring connects the two. The proposed assignment gives one worker bounded authority for a task, with an explicit end.</p></div>
+      <div class="architecture-grid"><article><span class="component-symbol" aria-hidden="true">∅</span><h3>Start with zero.</h3><p>No connected assets. No active permissions. Add your own rules and references, then approve a worker for a specific task.</p></article><article><span class="component-symbol" aria-hidden="true">◉</span><h3>Different tasks. Clear limits.</h3><p>A trip planner could use a travel budget while another worker replenishes the same dog food. Separate assignments, shared limits when you choose, and no silent budget reset.</p></article><article><span class="component-symbol" aria-hidden="true">↗</span><h3>Use without handing over.</h3><p>The intended payment route returns a receipt or a provider-restricted capability. An agent should not need your reusable card number or API key to help you.</p></article></div>
+      <p class="section-note">Rings are implemented and tested locally; the owner interaction is a prototype. Provider adapters, isolated execution and the asset-unlock protocol still need integration. Examples are not account defaults.</p>
     </section>
+
+    <section class="platform-section" id="developers" aria-labelledby="platform-title"><div class="platform-inner">
+      <div class="platform-pitch"><p class="section-kicker">For personal-agent builders</p><h2 id="platform-title">Bring your agent.<br />Keep your authority.</h2><p>Your rules should serve you through the personal agent you choose. A companion that remembers, an assistant that coordinates your day, or a new kind of everyday helper.</p><p>For builders, Signet offers open-source vault, policy, credential, and MCP foundations. The complete design records how that authority could feel as natural as a conversation. Further implementation is paused.</p><a class="button" href="/start/#integration">Read the integration path</a><a class="source-link" href="https://github.com/jmcentire/signet">Explore the source</a></div>
+      <div class="integration-steps"><article><span>1</span><div><h3>Connect the agent.</h3><p>Install the local CLI and attach an MCP client to <code>signet preview-serve</code> from this source revision. Evaluate fictional rules without a vault.</p></div></article><article><span>2</span><div><h3>Define the relationship.</h3><p>Separate purchase authority from one-time authority to add, edit, or remove an identified rule. Make both understandable to the person.</p></div></article><article><span>3</span><div><h3>Complete the service boundary.</h3><p>Inspect the local passkey prototype and the documented execution boundary. Provider integration and protected deployment remain open work, with no delivery commitment.</p></div></article><div class="install-command"><code>{install}</code><button type="button" data-copy={install} aria-label="Copy Signet install command">Copy</button></div></div>
+    </div></section>
+
+    <section class="section status-section" aria-labelledby="status-title"><div><p class="section-kicker">Open source. Open about the work ahead.</p><h2 id="status-title">A concrete prototype.<br />An open design.</h2><p>The experience above is fictional. Open-source foundations, exact approvals and synthetic rings tests support the proposal. The prototype is preserved as it stands; complete purchasing and controlled-browser enforcement are not implemented.</p></div><div class="status-list"><div><span class="status-pill">In the repository</span><p>Nine Rust crates plus a local authority core for signed approvals, versioned rules, single-use grants, and approved reorder baselines. A passkey owner app reviews exact actions; a separate read-only MCP preview evaluates fictional examples.</p></div><div><span class="status-pill planned">Integration work ahead</span><p>Native owner review and readable requirement binding, real-device passkeys, custody protocol, controlled-browser enforcement and provider execution remain open. Legacy proof/query paths include placeholders; generic capability issuance stays blocked.</p></div><a class="text-link" href="/start/#boundaries">Review implementation boundaries</a><p class="host-note">Host platforms may still require confirmation. Signet can govern only actions routed through its enforcement path.</p></div></section>
+
+    <section class="creator-section"><div class="creator-mark" aria-hidden="true"><img src="/mark.svg" width="70" height="76" alt="" /></div><div><p class="section-kicker">An independent concept and prototype by Jeremy McEntire</p><h2>Personal authority is<br />worth building for.</h2><p>The ambition is everyday freedom with personal control. Jeremy McEntire’s Signet brings source foundations and a documented architecture to the question: who does your agent answer to?</p><div class="creator-links"><a href="https://github.com/jmcentire/signet">Review the project</a><a href="https://perardua.dev">Meet the creator</a></div></div></section>
   </main>
   <SiteFooter />
   <span id="copy-status" role="status" class="sr-only"></span>
-  <script type="application/json" id="tier-examples" set:html={JSON.stringify(examples)} />
   <script>
-    const examples = JSON.parse(document.getElementById("tier-examples")!.textContent!);
-    const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-example]"));
-    function selectTier(index: number) {
-      tabs.forEach((tab, i) => { tab.setAttribute("aria-selected", String(i === index)); tab.tabIndex = i === index ? 0 : -1; });
-      document.getElementById("request-panel")!.setAttribute("aria-labelledby", `tier-${index}`);
-      for (const field of ["status", "title", "response", "detail"]) document.querySelector(`[data-output="${field}"]`)!.textContent = examples[index][field];
+    const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const mode = document.querySelector<HTMLSelectElement>('#confirmation-mode')!;
+    const price = document.querySelector<HTMLSelectElement>('#reorder-price')!;
+    const approveRule = document.querySelector<HTMLButtonElement>('#approve-rule')!;
+    const approveException = document.querySelector<HTMLButtonElement>('#approve-exception')!;
+    let electronics = false;
+    function renderDecisions() {
+      document.getElementById('cable-result')!.textContent = electronics
+        ? 'Ask first. Your electronics rule requires confirmation, even under $50.'
+        : mode.value === 'confirm' ? 'Within your $50 rule. Ask for final confirmation before buying.'
+        : 'Within your $50 rule. Could proceed without another prompt.';
+      document.getElementById('reorder-result')!.textContent = Number(price.value) > 46
+        ? 'Ask first. $49 exceeds this reorder’s $46 baseline, even though it is under $50.'
+        : mode.value === 'confirm' ? `$${price.value} meets your reorder rule. Ask for final confirmation.`
+        : Number(price.value) === 46 ? 'No better deal found. The usual $46 is permitted; could proceed.'
+        : 'A better deal at $42. Your approved order meets the rule; could proceed.';
+    }
+    function selectScenario(index: number) {
+      tabs.forEach((tab, i) => { tab.setAttribute('aria-selected', String(i === index)); tab.tabIndex = i === index ? 0 : -1; document.getElementById(`panel-${i}`)!.hidden = i !== index; });
     }
     tabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => selectTier(index));
-      tab.addEventListener("keydown", (event) => {
+      tab.addEventListener('click', () => selectScenario(index));
+      tab.addEventListener('keydown', (event) => {
         let next = index;
-        if (event.key === "ArrowRight" || event.key === "ArrowDown") next = (index + 1) % tabs.length;
-        else if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = (index + tabs.length - 1) % tabs.length;
-        else if (event.key === "Home") next = 0;
-        else if (event.key === "End") next = tabs.length - 1;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
         else return;
-        event.preventDefault(); selectTier(next); tabs[next].focus();
+        event.preventDefault(); selectScenario(next); tabs[next].focus();
       });
     });
-    document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach(button => {
-      button.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(button.dataset.copy!);
-          button.textContent = "COPIED";
-          document.getElementById("copy-status")!.textContent = "Install command copied.";
-          setTimeout(() => { button.textContent = "COPY"; }, 2000);
-        } catch {
-          document.getElementById("copy-status")!.textContent = "Copy unavailable. Select the command to copy it manually.";
-          button.textContent = "SELECT TEXT";
-        }
-      });
+    mode.addEventListener('change', renderDecisions);
+    price.addEventListener('change', renderDecisions);
+    approveRule.addEventListener('click', () => {
+      electronics = true; approveRule.disabled = true; approveRule.textContent = 'Addition applied in preview';
+      document.getElementById('electronics-rule')!.hidden = false;
+      document.getElementById('rule-result')!.textContent = 'Exact addition applied once. The one-time rule-management permission is now used. No purchase approved.';
+      renderDecisions();
+    });
+    approveException.addEventListener('click', () => {
+      approveException.disabled = true; approveException.textContent = 'One-time approval used in preview';
+      document.getElementById('exception-result')!.textContent = 'This Amazon desk lamp at $75 is approved once in the simulation. No other purchase is approved. Your $50 rule is unchanged.';
+    });
+    document.getElementById('reset-preview')!.addEventListener('click', () => {
+      electronics = false; mode.value = 'automatic'; price.value = '42';
+      approveRule.disabled = false; approveRule.textContent = 'Preview authorizing this exact addition';
+      approveException.disabled = false; approveException.textContent = 'Preview approving this purchase once';
+      document.getElementById('electronics-rule')!.hidden = true;
+      document.getElementById('rule-result')!.textContent = 'Awaiting one-time authority to add this rule.';
+      document.getElementById('exception-result')!.textContent = 'Needs your explicit approval.';
+      renderDecisions();
+    });
+    renderDecisions();
+    document.querySelector<HTMLButtonElement>('[data-copy]')?.addEventListener('click', async (event) => {
+      const button = event.currentTarget as HTMLButtonElement;
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy!);
+        button.textContent = 'Copied';
+        document.getElementById('copy-status')!.textContent = 'Install command copied.';
+        setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+      } catch {
+        document.getElementById('copy-status')!.textContent = 'Copy unavailable. Select the command to copy it manually.';
+      }
     });
   </script>
 </BaseLayout>

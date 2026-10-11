@@ -10,28 +10,48 @@ import "../styles/site.css";
   <SiteHeader />
   <main class="docs-main" id="main">
     <p class="eyebrow">For builders / Getting started</p>
-    <h1>Start with your<br />own authority.</h1>
-    <p>Signet is a Rust workspace with a local CLI and an MCP server. Start in a development environment with test data, then review the trust boundaries for your integration.</p>
+    <h1>Turn everyday rules<br />into personal authority.</h1>
+    <p>Signet is Jeremy McEntire’s proposal for personal authority across services. Source foundations and a local research prototype are preserved; further development is paused. Conversational rule setting, live purchasing and controlled-browser enforcement are not connected. Read <a href="/concept/">the complete concept</a> before evaluating the prototype.</p>
+    <div class="boundary-note"><p>The later native owner path connects passkey state and rings through one JSON CAS aggregate. Synthetic service tests pass; native browser/HTTP/concurrency review and readable requirement binding remain. The KMS transport is mock-tested, not live. See <a href="https://github.com/jmcentire/signet/blob/main/docs/prototype-status.md">the precise implementation checkpoint</a> and <a href="https://github.com/jmcentire/signet/blob/main/docs/open-work.md">open work</a>.</p></div><h2>Start with the read-only agent preview.</h2>
+    <p>From a checkout containing this change, run:</p>
+    <pre><code>cargo build --locked -p signet
+./target/debug/signet preview-serve</code></pre>
+    <p>The preview exposes standard MCP discovery and tool calls for hypothetical purchases and exact rule-change proposals. It never opens a vault, issues a grant, changes a rule, or makes a purchase. This command becomes available through remote installation only after this revision is published.</p>
+    <p>Read the <a href="https://github.com/jmcentire/signet/blob/main/docs/agent-preview.md">agent preview protocol</a>, <a href="https://github.com/jmcentire/signet/blob/main/docs/everyday-authority.md">everyday authority contract</a>, and <a href="https://github.com/jmcentire/signet/blob/main/docs/platform-readiness.md">platform readiness matrix</a>.</p>
+    <h2>Exercise the persistent authority core.</h2>
+    <p>The source now includes owner-signature verification, versioned rules, atomic single-use grants, executor reservations, and receipt-backed reorder baselines. Run <code>cargo run --locked -p signet --example authority_walkthrough</code> for a synthetic end-to-end contract exercise.</p>
+    <p>Read the <a href="https://github.com/jmcentire/signet/blob/main/docs/authority-service.md">authority service contract and deployment gates</a>. A passkey-backed owner approval app and signed HTTP/MCP adapter are implemented locally. Protected deployment, real-device validation and merchant adapters remain. A same-user CLI or model-provided approval flag is not owner authentication. No vendor account is connected by this walkthrough.</p>
+    <h2>Try the owner approval experience.</h2>
+    <pre><code>./target/debug/signet owner-preview --port 4322</code></pre>
+    <p>Open <code>http://localhost:4322</code> to review an exact purchase, compare a rule change, and explore backup passkeys. This explicitly fictional preview loads no credentials and grants no access. The local verification path uses server-verified WebAuthn and an injected signer; production isolation remains unverified. Read the <a href="https://github.com/jmcentire/signet/blob/main/docs/owner-approval.md">owner app contract and deployment gates</a>.</p>
+    <h2>Explore the existing vault components.</h2>
+    <p>The following steps inspect the separate legacy vault runtime. Its proof/query paths and standard MCP interoperability remain incomplete. Use synthetic data and a separate development configuration.</p>
     <h2>01. Install from source.</h2>
-    <p>Use Rust 1.85 or later and Git. The <code>--locked</code> flag uses the repository's tested dependency versions. The vault CLI is installed from this repository; <code>cargo install signet</code> is not the installation command for this project.</p>
+    <p>Use Rust 1.88 or later and Git. The <code>--locked</code> flag uses the repository's tested dependency versions. The vault CLI is installed from this repository; <code>cargo install signet</code> is not the installation command for this project.</p>
     <pre><code>cargo install --locked --git https://github.com/jmcentire/signet.git signet</code></pre>
     <h2>02. Initialize a local vault.</h2>
     <pre><code>signet init
 signet vault-status</code></pre>
     <p>Follow the initialization instructions and keep recovery material private. To inspect available commands, run <code>signet --help</code>.</p>
-    <h2>03. Connect your MCP client.</h2>
-    <p>Add Signet to your client's MCP server configuration. For Claude Desktop, this entry belongs in <code>claude_desktop_config.json</code>. The client must be able to find the installed binary; use its absolute path if needed.</p>
+    <h2>03. Connect the read-only MCP preview.</h2>
+    <p>Add the separate read-only preview to your client's MCP server configuration. For Claude Desktop, this entry belongs in <code>claude_desktop_config.json</code>. The client must be able to find the installed binary; use its absolute path if needed.</p>
     <pre><code>{`{
   "mcpServers": {
     "signet": {
       "command": "signet",
-      "args": ["serve"]
+      "args": ["preview-serve"]
     }
   }
 }`}</code></pre>
     <p>Restart the client after saving the configuration. The <a href="https://github.com/jmcentire/signet/blob/main/docs/claude-desktop-setup.md">repository setup guide</a> covers configuration and troubleshooting.</p>
-    <h2>Understand the current boundary.</h2>
-    <p>Capability verification is available. Issuance fails closed without a configured trusted issuer, and generic one-time capabilities remain disabled until a consumption ledger is available. Installing Signet does not enable production payment custody.</p>
+    <h2 id="integration">The integration path.</h2>
+    <p>Standing permission, conditional reorders, action exceptions, and one-time rule-management authority need distinct enforcement. The user authenticates and confirms the exact change; an agent-supplied approval flag is never enough.</p>
+    <p>A personal-agent platform supplies the conversation, model, service connectors, and consent experience. Signet supplies components for the authority boundary. MCP is the connection surface; it does not establish trust by itself.</p>
+    <ol><li><strong>Evaluate locally.</strong> Run the read-only MCP preview and synthetic authority walkthrough. Inspect the schemas and use only temporary test identities.</li><li><strong>Map authority.</strong> Decide which facts can be proved, which context is agent-internal, and which actions need explicit permission. Review every transport and enforcement path.</li><li><strong>Complete the integration.</strong> Review the passkey owner app on real devices, establish isolated service custody, and add an authenticated merchant executor with idempotency and reconciliation.</li></ol>
+    <p>Use the <a href="https://github.com/jmcentire/signet/blob/main/docs/getting-started.md">isolated evaluation walkthrough</a> and <a href="https://github.com/jmcentire/signet/blob/main/docs/integration.md">integration guide for humans and agents</a>. Platform integrations are proposed work; no personal-agent platform partnership or endorsement is claimed.</p>
+    <h2 id="boundaries">Understand the current boundary.</h2>
+    <div class="boundary-note"><p>The MCP <code>get_proof</code> executor currently returns deterministic placeholder bytes, not a cryptographic proof. Tier 1 and Tier 2 <code>query</code> responses are scaffolding. Do not use them as evidence of eligibility, identity, or real personal reasoning.</p><p>The authenticated middleware pipeline exists, but direct JSON-RPC dispatch has separate paths, including an anonymous session for some tools. Review transport and enforcement wiring; do not assume every exposed request passes through the full pipeline.</p></div>
+    <p>Exact-context capability verification exists in the credential crate. MCP and SDK capability issuance currently fail closed; verified issuer wiring remains to be implemented, and generic one-time capabilities remain disabled until a consumption ledger is available. Installing Signet does not enable production payment custody.</p>
     <p>Read the <a href="https://github.com/jmcentire/signet/blob/main/docs/capability-verification-boundary-2026-06-04.md">capability verification boundary</a>, <a href="https://github.com/jmcentire/signet/blob/main/SECURITY.md">security policy</a>, and <a href="https://github.com/jmcentire/signet/blob/main/CONTRIBUTING.md">contributor guide</a>.</p>
     <h2>Looking for agent tool policy?</h2>
     <p><a href="https://github.com/wandercom/signet-eval">Signet Eval</a> is the separate tool-call policy engine maintained by Wander. Its installation and configuration are independent of the vault.</p>

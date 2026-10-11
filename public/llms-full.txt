@@ -1,76 +1,54 @@
-# Signet — Your agent. Your authority.
+# Signet — Your AI. Your rules.
 
-Signet is an open-source personal authority stack written in Rust. It combines
-an encrypted vault, a policy engine, selective proof processing, and an MCP
-interface. The user remains the source of delegated authority in its trust model.
+Created by Jeremy McEntire: https://perardua.dev
+Concept and preserved research prototype. Further implementation paused as of 2026-10-11.
+Website: https://signet.tools/
+Concept: https://signet.tools/concept/
+Product source: https://github.com/jmcentire/signet
+Website source: https://github.com/jmcentire/Signet-Tools
+Architecture: https://github.com/jmcentire/signet/blob/main/docs/architecture.md
+Prototype status: https://github.com/jmcentire/signet/blob/main/docs/prototype-status.md
+Open decisions/work: https://github.com/jmcentire/signet/blob/main/docs/open-work.md
 
-## Install the vault CLI
+Signet proposes portable authority for one user-chosen agent across services.
+Rules and assets are separate versioned records. Rings bind them; tasks receive
+bounded budgets, explicit expiry and owner-approved scope. New accounts start at
+zero. Completion or expiry ends authority; swaps do not renew it. Restoring policy
+never restores spent authority. R2 native JSON snapshots use conditional head CAS.
 
-Requires Rust 1.85+ and Git:
+Client-only asset decryption with owner-held keys and no escrow is the direction;
+the exact designated-pair unlock protocol remains unresolved. Keys copied by an
+agent do not self-expire. Provider-restricted virtual cards and isolated execution
+are candidate routes, not live integrations.
 
-```sh
-cargo install --locked --git https://github.com/jmcentire/signet.git signet
-signet init
-signet vault-status
-signet serve
-```
+Proposed browser flow: pause action, Jev classifies structured context, Signet
+checks current rules, browser executes only an exact grant. Jev is TypeSafe's
+non-text-generating System One model, not authority or an infallible classifier.
+Unknown actions stop; bypass routes and hostile content remain security questions.
+No controlled browser or Jev integration is implemented.
 
-The source installation and MCP client setup are documented at
-https://signet.tools/start/. Do not use `cargo install signet` for this project.
-Use test data while evaluating the stack; keep recovery material private.
+Exact one-time approvals exist locally. Rich monthly exceptions such as $5 extra
+for dog food are planned; rationale is not permission and cannot change a baseline.
 
-## Components
+The local prototype includes signed authority, passkey verification, rings and
+native persistence tests. Native owner UI/HTTP/concurrency review and readable
+requirement binding remain unfinished. R2/KMS transports are mock-tested, not live.
+No merchant or named platform integration, certification or endorsement is claimed.
+Legacy MCP proof/query paths include placeholders; generic one-time capability
+issuance remains disabled. Source availability depends on publication of this revision.
 
-- signet-core: shared types and interfaces.
-- signet-vault: encrypted storage, key hierarchy, and audit chain.
-- signet-policy: request evaluation and permit/deny/anomaly decisions.
-- signet-notify: authorization notification and response handling.
-- signet-cred: credential processing, authority, and capability verification.
-- signet-proof: proof planning, execution, and presentation binding.
-- signet-sdk: service-facing verification and integration surfaces.
-- signet-mcp: MCP request handling and middleware.
-- signet: local CLI and server entrypoints.
+The homepage is fictional and grants no access. /demo/ is a separate legacy
+capabilities-manifest walkthrough with an optional real external checkout.
+License: MIT OR Apache-2.0. Attribution records contribution, not exclusivity.
 
-## Trust model
+Technical references:
+https://github.com/jmcentire/signet/blob/main/docs/rings-and-assets.md
+https://github.com/jmcentire/signet/blob/main/docs/r2-persistence.md
+https://github.com/jmcentire/signet/blob/main/docs/client-asset-custody.md
+https://github.com/jmcentire/signet/blob/main/docs/owner-approval.md
+https://github.com/jmcentire/signet/blob/main/docs/integration.md
+https://github.com/jmcentire/signet/blob/main/SECURITY.md
 
-The vault is the root. The agent is the representative. The service is a
-requester/verifier. Tier 1 supports provable claims; Tier 2 is agent-internal
-context; Tier 3 requires an explicit authorization boundary. The homepage's
-interactive examples illustrate these distinctions and do not perform real
-proof generation, credential issuance, or payment operations.
-
-Generic capability verification binds an envelope to the expected issuer,
-domain, purpose, financial context, and validity window. The current generic
-envelope is Signet envelope v1, not PASETO. Issuance fails closed without a
-configured trusted issuer. Generic one-time capabilities are disabled until
-there is a consumption ledger. A separately named delegated-provider envelope
-has its own exact-context acceptance boundary.
-
-Read the authoritative contracts:
-- https://github.com/jmcentire/signet/blob/main/docs/capability-verification-boundary-2026-06-04.md
-- https://github.com/jmcentire/signet/blob/main/docs/delegated-provider-authorization-boundary-2026-06-04.md
-- https://github.com/jmcentire/signet/blob/main/SECURITY.md
-
-## Companion: Signet Eval
-
-Signet Eval is a separate tool-call policy engine:
-
-```sh
-cargo install signet-eval
-```
-
-Its repository is https://github.com/wandercom/signet-eval.
-The existing /.well-known/mcp/server-card.json describes that companion's
-management interface, not the vault CLI. Consult the companion repository for
-current supported hosts and configuration.
-
-## Project status
-
-Signet is under active development. Source/tests are inspectable. Production
-credentials are forbidden in source, test fixtures, and CI artifacts; generated
-test keys and documented test vectors are permitted. Passing local tests or a
-published release does not establish production custody readiness.
-
-License: MIT OR Apache-2.0. Author: Jeremy McEntire (https://perardua.dev).
-Website: https://signet.tools/. Source: https://github.com/jmcentire/signet.
-Website privacy: https://signet.tools/privacy/.
+Preserved local evaluation only: build from the relevant source revision and use
+signet preview-serve for read-only MCP evaluation or signet owner-preview for
+fictional UI. Do not treat an install command as production custody readiness.

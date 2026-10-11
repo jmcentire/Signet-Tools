@@ -1,20 +1,42 @@
-# Signet
+# Signet — Your AI. Your rules.
 
-> Your agent. Your authority. An open-source personal authority stack for AI agents.
+Created by Jeremy McEntire: https://perardua.dev
+Concept and preserved research prototype. Further implementation paused as of 2026-10-11.
+Website: https://signet.tools/
+Concept: https://signet.tools/concept/
+Product source: https://github.com/jmcentire/signet
+Website source: https://github.com/jmcentire/Signet-Tools
+Architecture: https://github.com/jmcentire/signet/blob/main/docs/architecture.md
+Prototype status: https://github.com/jmcentire/signet/blob/main/docs/prototype-status.md
+Open decisions/work: https://github.com/jmcentire/signet/blob/main/docs/open-work.md
 
-Signet combines a cryptographic vault, selective proofs, policy evaluation, and an
-MCP interface in nine Rust crates. Signet Eval is the separate tool-call policy
-companion; the two have different installation commands and runtimes.
+Signet proposes portable authority for one user-chosen agent across services.
+Rules and assets are separate versioned records. Rings bind them; tasks receive
+bounded budgets, explicit expiry and owner-approved scope. New accounts start at
+zero. Completion or expiry ends authority; swaps do not renew it. Restoring policy
+never restores spent authority. R2 native JSON snapshots use conditional head CAS.
 
-## Documentation
+Client-only asset decryption with owner-held keys and no escrow is the direction;
+the exact designated-pair unlock protocol remains unresolved. Keys copied by an
+agent do not self-expire. Provider-restricted virtual cards and isolated execution
+are candidate routes, not live integrations.
 
-- [Overview](https://signet.tools/): The principle and trust model.
-- [Install and connect MCP](https://signet.tools/start/): Locked source installation and setup.
-- [Technical summary](https://signet.tools/llms-full.txt): Components, boundaries, and source links.
-- [Privacy](https://signet.tools/privacy/): Website data handling and software policy links.
-- [Source](https://github.com/jmcentire/signet): The vault and proof stack.
-- [Signet Eval](https://github.com/wandercom/signet-eval): Companion tool-call enforcement, maintained by Wander.
+Proposed browser flow: pause action, Jev classifies structured context, Signet
+checks current rules, browser executes only an exact grant. Jev is TypeSafe's
+non-text-generating System One model, not authority or an infallible classifier.
+Unknown actions stop; bypass routes and hostile content remain security questions.
+No controlled browser or Jev integration is implemented.
 
-Capability issuance requires a configured trusted issuer. Generic one-time
-capabilities remain disabled pending a consumption ledger. Do not infer production
-custody readiness from release availability or the website's illustrative examples.
+Exact one-time approvals exist locally. Rich monthly exceptions such as $5 extra
+for dog food are planned; rationale is not permission and cannot change a baseline.
+
+The local prototype includes signed authority, passkey verification, rings and
+native persistence tests. Native owner UI/HTTP/concurrency review and readable
+requirement binding remain unfinished. R2/KMS transports are mock-tested, not live.
+No merchant or named platform integration, certification or endorsement is claimed.
+Legacy MCP proof/query paths include placeholders; generic one-time capability
+issuance remains disabled. Source availability depends on publication of this revision.
+
+The homepage is fictional and grants no access. /demo/ is a separate legacy
+capabilities-manifest walkthrough with an optional real external checkout.
+License: MIT OR Apache-2.0. Attribution records contribution, not exclusivity.
