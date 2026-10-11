@@ -25,7 +25,11 @@ external certification.
 - Keep motion optional, focus visible, and essential content readable without JS.
 
 The previous engraved `seal.svg` remains available as a legacy asset. The
-current mark and favicon use iris. Avoid generic certification badges, fabricated
+current mark is the selected E1 “Soft crest”: a solid shield inside four rounded
+corner brackets. Preserve its exact geometry in `public/mark.svg`. The SVG
+favicon uses iris on light tabs and periwinkle on dark tabs. The ICO contains
+16, 32 and 48 pixel versions on white for legibility on either tab theme.
+Website marks use square dimensions, matching the artwork’s viewBox. Avoid generic certification badges, fabricated
 metrics or customer logos. Preserve factual author attribution in hero, creator
 section, footer, README and metadata.
 

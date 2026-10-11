@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
-  <path d="M50 4 90 27v46L50 96 10 73V27Z" stroke="#514bc2" stroke-width="3"/>
-  <path d="M68 29H43c-10 0-16 5-16 13s6 12 16 12h14c10 0 16 4 16 12S67 79 57 79H32" stroke="#514bc2" stroke-width="7" stroke-linecap="square"/>
-  <path d="M33 21h34M33 87h34" stroke="#514bc2" stroke-width="2"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><title>E1 Soft crest</title><svg x="0" y="0" width="100" height="100" viewBox="0 0 100 100"><path xmlns="http://www.w3.org/2000/svg" d="M40 12H25C18 12 12 18 12 25V40M60 12H75C82 12 88 18 88 25V40M88 60V75C88 82 82 88 75 88H60M40 88H25C18 88 12 82 12 75V60" fill="none" stroke="#514bc2" stroke-width="10" stroke-linecap="round" /><path d="M30 30H70V43C70 56 62 66 50 73C38 66 30 56 30 43Z" fill="#514bc2"/></svg></svg>

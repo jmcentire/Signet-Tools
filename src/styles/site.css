@@ -93,7 +93,7 @@ img,svg {
 }
 .wordmark img {
   width:28px;
-  height:32px;
+  height:28px;
 }
 .wordmark-period {
   color:var(--accent);
@@ -134,14 +134,9 @@ img,svg {
   margin:0 0 32px;
 }
 .small-seal {
-  background:var(--lavender);
   width:25px;
-  height:28px;
-  display:grid;
-  place-items:center;
-  clip-path:polygon(50% 0,95% 25%,95% 75%,50% 100%,5% 75%,5% 25%);
-  font-size:15px;
-  color:var(--accent);
+  height:25px;
+  flex-shrink:0;
 }
 h1,h2,h3,p {
   margin-top:0;
@@ -1177,7 +1172,7 @@ code {
   }
   .creator-mark img {
     width:34px;
-    height:40px;
+    height:34px;
   }
   .creator-section h2 {
     font-size:33px;
